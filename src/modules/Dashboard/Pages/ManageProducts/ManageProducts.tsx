@@ -4,22 +4,38 @@ import DashboardLayout from "DashboardLayout/DashboardLayout";
 import FilterProducts from "./components/FilterProducts/FilterProducts";
 import DashProductModal from "./components/DashProductModal/DashProductModal";
 import { CARD_DATA } from "constants/contents/data";
+import { getProducts } from "services/products";
 
 const ManageProducts = () => {
   const [filter, setFilter] = React.useState("");
   const [filterData, setFilterData] = React.useState(CARD_DATA);
   const [productModal, setProductModal] = React.useState(false);
+  const [product, setProduct] = React.useState();
 
   React.useEffect(() => {
     if (filter?.length >= 2) {
-      const searchedData = filterData.filter((e: any) =>
-        `${e.category.toLowerCase()} `.includes(filter.toLowerCase())
+      const searchedData = CARD_DATA.filter((e) =>
+        e.title.toLowerCase().includes(filter.toLowerCase())
       );
       setFilterData(searchedData);
     } else {
+      // If filter length is less than 2, show all data
       setFilterData(CARD_DATA);
     }
   }, [filter]);
+
+
+
+  
+  // get ProductsData
+  React.useEffect(() => {
+    const getAllProducts = async () => {
+      await getProducts(setProduct);
+    };
+    getAllProducts();
+  }, []);
+
+
 
   return (
     <DashboardLayout
@@ -27,7 +43,7 @@ const ManageProducts = () => {
       buttonClick={() => setProductModal(true)}
     >
       <FilterProducts search={filter} setSearch={setFilter} />
-      <ProductCard productData={filterData ? filterData : []} />
+      <ProductCard productData={product ? product : []} />
       {productModal && (
         <DashProductModal
           title="Add Admin"

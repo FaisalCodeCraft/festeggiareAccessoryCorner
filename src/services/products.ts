@@ -1,5 +1,11 @@
 import { db, storage } from "config/firebase";
-import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  onSnapshot,
+  updateDoc,
+} from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const productCollectionRef = collection(db, "products");
@@ -20,7 +26,7 @@ const uploadFile = async ({ image, id }: any) => {
 };
 
 // for new Products....
-export const addNewProducts = (values: any, onClose: () => void) => {
+export const addNewProducts = (values: any, productData: any) => {
   return new Promise(async (resolve, reject) => {
     try {
       const newProductDataAdded = await addDoc(productCollectionRef, {
@@ -33,18 +39,40 @@ export const addNewProducts = (values: any, onClose: () => void) => {
 
       const url = await uploadFile({
         image: values?.productImage,
+        id: productData?.id,
       } as any);
 
       const adminUserDoc = doc(db, "products", newProductDataAdded?.id);
 
-      await updateDoc(adminUserDoc, { productImage: url ,id:newProductDataAdded?.id});
+      await updateDoc(adminUserDoc, {
+        productImage: url,
+        id: newProductDataAdded?.id,
+      });
 
       resolve("New Product will be created");
-
-      onClose();
     } catch (error) {
       reject(error);
-      onClose();
+    }
+  });
+};
+
+// get product data from firebase.
+
+// get Products
+export const getProducts = async (setProduct: any) => {
+  new Promise<void>((resolve, reject) => {
+    try {
+      const products = onSnapshot(productCollectionRef, (allProducts) => {
+        const newProduct: any = [];
+        allProducts.forEach((product) => {
+          newProduct.push({ ...product?.data(), id: product?.id });
+        });
+        setProduct(newProduct);
+        resolve(newProduct);
+      });
+      return () => products();
+    } catch (error) {
+      reject(error);
     }
   });
 };
