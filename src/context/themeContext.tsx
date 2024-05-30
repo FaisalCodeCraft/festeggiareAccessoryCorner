@@ -41,7 +41,7 @@ const ContextProvider = ({ children }: { children: ReactNode }) => {
   const contextValue: ContextValueType = {
     inCart,
     setInCart,
-    mode:'light',
+    mode:mode === 'light' ? 'light' : "dark",
     setMode,
     toggleMode,
     handleKey,

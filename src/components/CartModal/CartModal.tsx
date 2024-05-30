@@ -26,7 +26,7 @@ interface CartItem {
 }
 
 interface CartModalProps {
-  color?: string;
+  color?: boolean;
 }
 
 const Fade = React.forwardRef<HTMLDivElement, any>(function Fade(

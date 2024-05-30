@@ -298,14 +298,14 @@ const Navbar = () => {
               </NavLink>
             </ListItem>
             <ListItem>
-              <ToggleMode color={color ? "true" : "false"} />
+              <ToggleMode color={color } />
             </ListItem>
           </List>
           <Box display='flex' alignItems={'center'}>
             <IconButton
               onClick={()=>navigate(ROUTES.AUTH.SIGN_IN)}
             ><PersonAddAlt1Rounded sx={{color:'white'}}/></IconButton>
-          <CartModal color={color ? "true" : "false"} />
+          <CartModal color={color } />
           </Box>
         </Toolbar>
       </AppBar>
