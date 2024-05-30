@@ -26,6 +26,7 @@ const Navbar = () => {
   const navigate= useNavigate()
 
   const isSelectedProductUrl = pathname === LANDING_ROUTES.PRODUCTS_PAGE;
+  const isSlectedOrderUrl = pathname === LANDING_ROUTES.ORDER_PAGE
 
   const changeBgColor = () => {
     if (window.scrollY >= 5) {
@@ -152,7 +153,7 @@ const Navbar = () => {
               ? "black"
               : mode === "dark" && bgColor
               ? "white"
-              : isSelectedProductUrl
+              : isSelectedProductUrl ||isSlectedOrderUrl
               ? "black"
               : "transparent",
           boxShadow: "none",

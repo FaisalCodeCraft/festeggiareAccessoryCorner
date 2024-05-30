@@ -1,4 +1,3 @@
-
 export const NEW_ARRIVALS = [
   {
     id: 1,
@@ -78,183 +77,209 @@ export const TOP_RATED = [
 
 export const CARD_DATA = [
   {
-    id:1,
+    id: 1,
     poster:
       "https://png.pngtree.com/png-vector/20210602/ourmid/pngtree-3d-beauty-cosmetics-product-design-png-image_3350323.jpg",
     title: "Cosmatic",
     price: 40,
-    description:
-      "Lorem Ipsum has been the industry's standard.",
-    quantity:20,
-    category:'Kids'
-
+    description: "Lorem Ipsum has been the industry's standard.",
+    quantity: 20,
+    category: "Kids",
   },
   {
-    id:2,
+    id: 2,
     poster:
       "https://png.pngtree.com/png-vector/20210129/ourmid/pngtree-3d-cosmetic-mockup-round-bottle-png-image_2859458.png",
     title: "Spray Bottle ",
     price: 50,
-    description:
-      "Lorem Ipsum has been the industry's standard.",
-      quantity:10,
-    category:'Womens'
-
+    description: "Lorem Ipsum has been the industry's standard.",
+    quantity: 10,
+    category: "Womens",
   },
   {
-    id:3,
+    id: 3,
     poster:
       "https://png.pngtree.com/element_our/20190602/ourmid/pngtree-round-bottled-container-illustration-image_1402480.jpg",
     title: "Red Spray ",
     price: 30,
-    description:
-      "Lorem Ipsum has been the industry's standard.",
-      quantity:25,
-    category:'Category'
+    description: "Lorem Ipsum has been the industry's standard.",
+    quantity: 25,
+    category: "Category",
   },
   {
-    id:4,
+    id: 4,
     poster:
       "https://img.freepik.com/free-psd/hand-sanitizer-bottle-isolated-transparent-background_191095-28438.jpg",
     title: "powder ",
     price: 45,
-    description:
-      "Lorem Ipsum has been the industry's standard.",
-      quantity:12,
-    category:'Girls'
+    description: "Lorem Ipsum has been the industry's standard.",
+    quantity: 12,
+    category: "Girls",
   },
   {
-    id:5,
+    id: 5,
     poster:
       "https://png.pngtree.com/png-clipart/20200701/original/pngtree-hand-sanitizer-protect-virus-design-vector-png-image_5344222.jpg",
     title: "Cenetixer",
     price: 70,
-    description:
-      "Lorem Ipsum has been the industry's standard.",
-      quantity:40,
-    category:'Girls'
-
+    description: "Lorem Ipsum has been the industry's standard.",
+    quantity: 40,
+    category: "Girls",
   },
 ];
 
 export const PRODUCT_DETAILS = [
   {
+   id:1,
     poster:
       "https://png.pngtree.com/png-vector/20210602/ourmid/pngtree-3d-beauty-cosmetics-product-design-png-image_3350323.jpg",
     title: "Casmatics ",
     price: 40,
     stock: 436,
+    date: "2/03/2024",
+    status: "pending",
     category: "product Category",
   },
   {
+   id:2,
     poster:
       "https://png.pngtree.com/png-vector/20210129/ourmid/pngtree-3d-cosmetic-mockup-round-bottle-png-image_2859458.png",
     title: "Spray Bottle ",
     price: 50,
     stock: "",
+    date: "1/02/2024",
+    status: "complete",
     category: "product Category",
   },
   {
+   id:3,
     poster:
       "https://png.pngtree.com/element_our/20190602/ourmid/pngtree-round-bottled-container-illustration-image_1402480.jpg",
     title: "Red Spray ",
     price: 30,
     stock: 436,
+    date: "14/01/2024",
+    status: "pending",
     category: "product Category",
   },
   {
+   id:4,
     poster:
       "https://img.freepik.com/free-psd/hand-sanitizer-bottle-isolated-transparent-background_191095-28438.jpg",
     title: "Washing powder ",
     price: 45,
     stock: 436,
+    date: "18/01/2024",
+    status: "complete",
     category: "product Category",
   },
   {
+   id:5,
     poster:
       "https://png.pngtree.com/png-vector/20210602/ourmid/pngtree-3d-beauty-cosmetics-product-design-png-image_3350323.jpg",
     title: "Kids",
     price: 40,
     stock: 436,
+    date: "13/03/2024",
+    status: "complete",
     category: "product Category",
   },
   {
+   id:6,
     poster:
       "https://png.pngtree.com/png-vector/20210129/ourmid/pngtree-3d-cosmetic-mockup-round-bottle-png-image_2859458.png",
-    title: 'Bottle',
+    title: "Bottle",
     price: 50,
     stock: "",
+    date: "11/02/2024",
+    status: "complete",
     category: "product Category",
   },
   {
+   id:7,
     poster:
       "https://png.pngtree.com/png-clipart/20200701/original/pngtree-hand-sanitizer-protect-virus-design-vector-png-image_5344222.jpg",
     title: "Candy",
     price: 70,
     stock: 436,
+    date: "3/04/2024",
+    status: "pending",
     category: "product Category",
   },
   {
+   id:8,
     poster:
       "https://png.pngtree.com/element_our/20190602/ourmid/pngtree-round-bottled-container-illustration-image_1402480.jpg",
     title: "Juice",
     price: 30,
     stock: 436,
+    date: "6/05/2024",
+    status: "pending",
     category: "product Category",
   },
   {
+   id:9,
     poster:
       "https://img.freepik.com/free-psd/hand-sanitizer-bottle-isolated-transparent-background_191095-28438.jpg",
     title: "Milk",
     price: 45,
     stock: 436,
+    date: "9/01/2024",
+    status: "complete",
     category: "product Category",
   },
   {
+   id:10,
     poster:
       "https://png.pngtree.com/png-clipart/20200701/original/pngtree-hand-sanitizer-protect-virus-design-vector-png-image_5344222.jpg",
     title: "Mackup",
     price: 70,
     stock: 436,
+    date: "1/03/2024",
+    status: "pending",
     category: "product Category",
   },
 ];
 
 export const ADMIN_CARD = [
   {
-    id:1,
-    adminPoster:'https://e7.pngegg.com/pngimages/88/823/png-clipart-logo-product-design-brand-trademark-new-product-promotion-blue-text-thumbnail.png',
-    role:'Moderator',
-    adminName:"Admin Name",
-    email:"1234@gmail.com",
-    phoneNumber:123456789,
+    id: 1,
+    adminPoster:
+      "https://e7.pngegg.com/pngimages/88/823/png-clipart-logo-product-design-brand-trademark-new-product-promotion-blue-text-thumbnail.png",
+    role: "Moderator",
+    adminName: "Admin Name",
+    email: "1234@gmail.com",
+    phoneNumber: 123456789,
   },
   {
-    id:2,
-    adminPoster:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCioYDrXurdD8KWO5Vp1tsWLc8fF7pFPO2SjQnKXFqrsBR4eKwzUHnVxPTTk0mamF7ZfU&usqp=CAU',
-    role:'Administrate',
-    adminName:"Admin",
-    email:"admin@gmail.com",
-    phoneNumber:123456789,
+    id: 2,
+    adminPoster:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCioYDrXurdD8KWO5Vp1tsWLc8fF7pFPO2SjQnKXFqrsBR4eKwzUHnVxPTTk0mamF7ZfU&usqp=CAU",
+    role: "Administrate",
+    adminName: "Admin",
+    email: "admin@gmail.com",
+    phoneNumber: 123456789,
   },
   {
-    id:3,
-    adminPoster:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfKu7f95-2MZAjwqCrhGL2rUgKVpnqhhfVgT7X067p4SzCFSYCFuMwBpvwj5hd-2q4jew&usqp=CAU',
-    role:'Admin',
-    adminName:"Administrator",
-    email:"user@gmail.com",
-    phoneNumber:123456789,
+    id: 3,
+    adminPoster:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfKu7f95-2MZAjwqCrhGL2rUgKVpnqhhfVgT7X067p4SzCFSYCFuMwBpvwj5hd-2q4jew&usqp=CAU",
+    role: "Admin",
+    adminName: "Administrator",
+    email: "user@gmail.com",
+    phoneNumber: 123456789,
   },
   {
-    id:4,
-    adminPoster:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaIP2vALB3mlKvVFa733pe6JK8YaE229MxKVi9xPyDz20Rt6HPwBKXQDNfHIfGHcZjnDg&usqp=CAU',
-    role:'Local Admin',
-    adminName:"Local Admin",
-    email:"local@gmail.com",
-    phoneNumber:123456789,
+    id: 4,
+    adminPoster:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaIP2vALB3mlKvVFa733pe6JK8YaE229MxKVi9xPyDz20Rt6HPwBKXQDNfHIfGHcZjnDg&usqp=CAU",
+    role: "Local Admin",
+    adminName: "Local Admin",
+    email: "local@gmail.com",
+    phoneNumber: 123456789,
   },
-]
+];
 
 export const ADMIN_ROLE = ["Administrator", "Admin", "Moderator"];
-export const CATEGORIES = [ 'Cosmatics' , 'Kids' , 'Mackups' , 'Ladies' ]
-export const SORT_FILTER = ['Name','Asc','Desc']
+export const CATEGORIES = ["Cosmatics", "Kids", "Mackups", "Ladies"];
+export const SORT_FILTER = ["Name", "Asc", "Desc"];

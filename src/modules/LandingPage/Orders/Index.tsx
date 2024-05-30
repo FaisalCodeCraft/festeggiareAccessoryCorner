@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react";
+import OrderList from "./components/OrderList/Orderlist";
 
 const OrderPlace = () => {
   return (
     <>
-         <h1>Hellow.......</h1>
+      <OrderList />
     </>
-  )
-}
+  );
+};
 
-export default OrderPlace
+export default OrderPlace;
