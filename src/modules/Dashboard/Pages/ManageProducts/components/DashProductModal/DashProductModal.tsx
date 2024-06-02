@@ -22,7 +22,7 @@ const DashProductModal = (props: any) => {
   // const navigate = useNavigate();
   const [isLoading, setIsLoading] = React.useState(false);
   const [category, setCategory] = React.useState<string>("");
-
+console.log(category)
   const {
     register,
     handleSubmit,
@@ -46,7 +46,7 @@ const DashProductModal = (props: any) => {
 
   React.useEffect(()=>{
     productData && setValue("profileImage", productData?.poster);
-  },[])
+  })
 
 
   
