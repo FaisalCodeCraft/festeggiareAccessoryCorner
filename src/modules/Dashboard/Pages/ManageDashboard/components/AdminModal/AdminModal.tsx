@@ -9,7 +9,7 @@ import { LoadingButton } from "@mui/lab";
 import { useForm } from "react-hook-form";
 import { addAdminFormSchema, editAddminFormSchema } from "validation";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { inValidButton } from "modules/Dashboard/Pages/ManageAuth/components/LoginFom/LoginForm";
+import { inValidButton } from "components/LoginFom/LoginForm";
 import {
   loadingButton,
   uploadButton,

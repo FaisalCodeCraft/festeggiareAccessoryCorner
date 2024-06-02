@@ -1,6 +1,5 @@
-import React from "react";
-import LoginForm from "./components/LoginFom/LoginForm";
 import { Box } from "@mui/material";
+import LoginForm from "components/LoginFom/LoginForm";
 // import { COLORS } from 'constants/contents/color'
 
 const ManageAuth = () => {

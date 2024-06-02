@@ -29,10 +29,7 @@ interface CartModalProps {
   color?: boolean;
 }
 
-const Fade = React.forwardRef<HTMLDivElement, any>(function Fade(
-  props,
-  ref
-) {
+const Fade = React.forwardRef<HTMLDivElement, any>(function Fade(props, ref) {
   const {
     children,
     in: open,
@@ -86,6 +83,13 @@ const style = {
   overflowY: "scroll",
   overflowX: "hidden",
   borderRadius: 6,
+  "::-webkit-scrollbar": {
+    width: "6px",
+  },
+  "::-webkit-scrollbar-thumb": {
+    background: COLORS.pink.hotPink,
+    borderRadius: "8px",
+  },
 };
 
 const CartModal: React.FC<CartModalProps> = ({ color }) => {
@@ -96,7 +100,7 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
   const { mode, inCart, setInCart } = React.useContext(ThemeContext);
 
   const handleRemove = (item: CartItem) => {
-    const removeItemFromCArt = inCart.filter((i:any) => i.id !== item.id);
+    const removeItemFromCArt = inCart.filter((i: any) => i.id !== item.id);
     setInCart(removeItemFromCArt);
   };
 
@@ -113,7 +117,7 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
   };
 
   const totalPrice = inCart.reduce(
-    (initial:any, curr:any) => initial + curr.price * curr.quantity,
+    (initial: any, curr: any) => initial + curr.price * curr.quantity,
     0
   );
 
@@ -146,23 +150,35 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
               display={"flex"}
               justifyContent={"space-between"}
               alignItems={"center"}
+              pb={2}
             >
-              <Typography id="spring-modal-title" variant="h6" component="h2">
-                Your cart
+              <Typography fontSize={"1.5em"} pb={1}>
+                Shopping Cart
               </Typography>
+              <IconButton disableRipple sx={btnStyle} onClick={handleClose}>
+                <Close color="error" fontSize="small" />
+              </IconButton>
+            </Box>
+            <Divider />
+            <Box
+              display={"flex"}
+              justifyContent={"space-between"}
+              alignItems={"center"}
+              py={2}
+            >
+              <Typography id="spring-modal-title">Items In Cart</Typography>
               <Box>
-                <Button style={removBtnStyle} onClick={() => setInCart([])}>
+                <Button disableRipple style={removBtnStyle} onClick={() => setInCart([])}>
                   Remove All
                 </Button>
               </Box>
             </Box>
-            {inCart.map((item:any, i:any) => (
+            {inCart.map((item: any, i: any) => (
               <Box key={i} display={"flex"} alignItems={"center"} mt={3}>
                 <Box
                   position={"relative"}
                   height={"100px"}
                   width={"100px"}
-                  mr={2}
                   sx={{
                     backgroundColor: "rgb(248, 247, 243)",
                     borderRadius: "8px",
@@ -184,14 +200,13 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
                   alignItems={"center"}
                 >
                   <Typography
-                   fontWeight={"light"}
+                    fontWeight={"light"}
                     fontSize={"large"}
                     width={"250px"}
-                    >
+                  >
                     {item.title}
                   </Typography>
                   <Box
-                    width={"100px"}
                     display={"flex"}
                     justifyContent={"space-between"}
                     alignItems={"center"}
@@ -207,11 +222,10 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
                   <Typography fontWeight={"bold"} color={COLORS.gray.light}>
                     ${item?.price * item?.quantity}
                   </Typography>
-                  <IconButton sx={btnStyle} onClick={() => handleRemove(item)}>
+                  <IconButton disableRipple sx={btnStyle} onClick={() => handleRemove(item)}>
                     <Close color="error" fontSize="small" />
                   </IconButton>
                 </Box>
-                <hr />
                 <Divider />
               </Box>
             ))}
@@ -225,17 +239,43 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
             <Box
               display={"flex"}
               justifyContent={"space-between"}
+              alignItems={"center"}
               color={COLORS.pink.hotPink}
               mt={7}
-              p={1}
+              py={1}
               px={3}
               width={"60%"}
               mx={"auto"}
-              border={`1px solid ${COLORS.pink.hotPink}`}
-              borderRadius={"8px"}
             >
-              <Typography fontWeight={"bold"}>Total Price:</Typography>
-              <Typography fontWeight={"bold"}>$ {totalPrice}</Typography>
+              <Box display={"flex"}>
+                <Typography pr={0.5}>Products:</Typography>
+                <Typography>$ {inCart.length}</Typography>
+              </Box>
+              <Box display={"flex"}>
+                <Typography pr={0.5}>Total Price:</Typography>
+                <Typography>$ {totalPrice}</Typography>
+              </Box>
+            </Box>
+            <Divider />
+            <Box pt={2} display={"flex"} justifyContent={"end"}>
+              <Button
+              
+                sx={{
+                  color: COLORS.pink.hotPink,
+                  border: "1px solid rgb(238,44,130)",
+                  borderRadius: "8px",
+                  px: "auto",
+                  py: ".7em",
+                  fontSize: ".67rem",
+                  "&:hover": {
+                    backgroundColor: COLORS.pink.hotPink,
+                    color: "white",
+                  },
+                }}
+                
+              >
+                Purchase
+              </Button>
             </Box>
           </Box>
         </Fade>
@@ -268,11 +308,11 @@ const btnStyle = {
   padding: 1,
 };
 const removBtnStyle = {
-  color: COLORS.pink.hotPink,
-  border: "1px solid rgb(238,44,130)",
+  color: "red",
+  border: "1px solid red",
   borderRadius: "40px",
-  px: 5,
+  px: "auto",
   height: "25px",
   fontSize: ".67rem",
-  "&:hover": { backgroundColor: COLORS.pink.hotPink, color: "white" },
+  "&:hover": { backgroundColor: "red", color: "white" },
 };
