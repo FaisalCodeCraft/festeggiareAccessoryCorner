@@ -22,6 +22,7 @@ const FilterProducts = (props:any) => {
         pb: 3,
       }}
     >
+      <p>{category}</p>
       <Box>
         <TextField
           type="search"

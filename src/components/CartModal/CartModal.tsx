@@ -98,7 +98,7 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const { mode, inCart, setInCart } = React.useContext(ThemeContext);
-
+  console.log(incDec);
   const handleRemove = (item: CartItem) => {
     const removeItemFromCArt = inCart.filter((i: any) => i.id !== item.id);
     setInCart(removeItemFromCArt);
@@ -168,7 +168,11 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
             >
               <Typography id="spring-modal-title">Items In Cart</Typography>
               <Box>
-                <Button disableRipple style={removBtnStyle} onClick={() => setInCart([])}>
+                <Button
+                  disableRipple
+                  style={removBtnStyle}
+                  onClick={() => setInCart([])}
+                >
                   Remove All
                 </Button>
               </Box>
@@ -222,7 +226,11 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
                   <Typography fontWeight={"bold"} color={COLORS.gray.light}>
                     ${item?.price * item?.quantity}
                   </Typography>
-                  <IconButton disableRipple sx={btnStyle} onClick={() => handleRemove(item)}>
+                  <IconButton
+                    disableRipple
+                    sx={btnStyle}
+                    onClick={() => handleRemove(item)}
+                  >
                     <Close color="error" fontSize="small" />
                   </IconButton>
                 </Box>
@@ -259,7 +267,6 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
             <Divider />
             <Box pt={2} display={"flex"} justifyContent={"end"}>
               <Button
-              
                 sx={{
                   color: COLORS.pink.hotPink,
                   border: "1px solid rgb(238,44,130)",
@@ -272,7 +279,6 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
                     color: "white",
                   },
                 }}
-                
               >
                 Purchase
               </Button>

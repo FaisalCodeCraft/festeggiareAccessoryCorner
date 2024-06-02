@@ -3,7 +3,6 @@ import AuthContextProvider, { AuthContext } from "context/authContext";
 import ContextProvider from "context/themeContext";
 import DashboardRoutes from "core/DashboardRouter/DashboardRoutes";
 import Routers from "core/Routers/Routers";
-import Layout from "layout";
 import { useContext } from "react";
 // import Routers from "core/Routers/Routers";
 // import Layout from "layout";

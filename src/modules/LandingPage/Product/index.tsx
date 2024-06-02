@@ -1,7 +1,6 @@
 import React from 'react';
 import AllProducts from '../Home/components/AllProducts/AllProducts';
 import { Box, Typography } from '@mui/material';
-import Layout from 'layout';
 
 
 const Product: React.FC = () => {

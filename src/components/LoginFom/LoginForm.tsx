@@ -66,7 +66,8 @@ const LoginForm = () => {
     } else{
       navigate(LANDING_ROUTES.HOME_PAGE)
     }
-  }, [context?.isLoggedIn]);
+  }, [context?.isLoggedIn,context.user,navigate]);
+
 
   return (
     <React.Fragment>

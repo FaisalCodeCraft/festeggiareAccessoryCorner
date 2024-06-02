@@ -37,7 +37,7 @@ const LoginDialog = () => {
     } else{
       setOpen(true)
     }
-  }, [context?.isLoggedIn]);
+  }, [context?.isLoggedIn,context.user,navigate]);
   
 
   useEffect(() => {
@@ -46,7 +46,8 @@ const LoginDialog = () => {
         setOpen(true);
        }
       }, 1000 * 6);
-  }, [!context.isLoggedIn]);
+  }, [context.isLoggedIn]);
+  
   const handleClose = () => {
     setOpen(false);
   };

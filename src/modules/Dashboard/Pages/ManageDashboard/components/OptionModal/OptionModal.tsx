@@ -1,7 +1,6 @@
 import React from "react";
 import { Box, Divider, Typography } from "@mui/material";
 import AdminModal from "../AdminModal/AdminModal";
-import { deleteAdmin } from "services/admin";
 import ConfirmModal from "../ConfirmModal/ConfirmModal";
 
 const OptionModal = (props:any) => {
