@@ -1,20 +1,19 @@
 import React from "react";
 import { Box, Grid, IconButton, Typography } from "@mui/material";
-import { CARD_DATA } from "constants/contents/data";
 import CommonButton from "components/Button/Button";
 import ProductModal from "../DashProductModal/DashProductModal";
 import { COLORS } from "constants/contents/color";
 
-const ProductCard = (props:any) => {
-  const {productData} = props
+const ProductCard = (props: any) => {
+  const { productData } = props;
 
   const [productModal, setProductModal] = React.useState(false);
-  const [productId,setProductId] = React.useState(false)
+  const [productId, setProductId] = React.useState(false);
 
   if (productData.length) {
     return (
-      <Grid container spacing={3} sx={{mb:{md:4}}}>
-        {CARD_DATA.map((item:any) => (
+      <Grid container spacing={3} sx={{ mb: { md: 4 } }}>
+        {productData?.map((item: any) => (
           <Grid item md={3} sm={4} xs={12}>
             <Box
               sx={{
@@ -22,17 +21,17 @@ const ProductCard = (props:any) => {
                 boxShadow: "0px 0px 7px 1px lightGray",
                 textAlign: "center",
                 p: 1,
-                height:352
+                height: 352,
               }}
             >
               <img
-                src={item.poster}
+                src={item?.productImage}
                 alt="productImg"
                 style={{
                   width: "130px",
                   height: "130px",
                   borderRadius: "50%",
-                  marginTop:'10%'
+                  marginTop: "10%",
                 }}
               />
               <Typography
@@ -43,15 +42,36 @@ const ProductCard = (props:any) => {
                   fontSize: { md: "1.25em" },
                 }}
               >
-                {item.title}
+                {item?.title}
               </Typography>
               <Typography
                 sx={{
                   fontSize: { md: "14px" },
                 }}
               >
-                {item.description}
-                 <Typography component={'a'} href="#">...</Typography>
+                {item?.description.slice(0, 50)}
+                <Typography
+                component={'a'}
+                  sx={{
+                    color: "blue",
+                    textDecoration: "underline",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+                    setProductModal(!productModal);
+                    setProductId(item?.id);
+                  }}
+                >
+                  ...
+                </Typography>
+                {item.id === productId && productModal && (
+                  <ProductModal
+                    productModal={productModal}
+                    isUpdate={true}
+                    productData={item}
+                    onClose={() => setProductModal(false)}
+                  />
+                )}
               </Typography>
               <Typography
                 sx={{
@@ -60,7 +80,7 @@ const ProductCard = (props:any) => {
                   p: 1,
                 }}
               >
-                ${item.price}
+                ${item?.price}
               </Typography>
               <IconButton
                 sx={{
@@ -70,18 +90,17 @@ const ProductCard = (props:any) => {
                   },
                 }}
                 onClick={() => {
-                  setProductModal(!productModal)
-                  setProductId(item?.id)
+                  setProductModal(!productModal);
+                  setProductId(item?.id);
                 }}
               >
                 <CommonButton title="Edit Product" />
               </IconButton>
-              {item.id === productId  &&
-              productModal && (
+              {item.id === productId && productModal && (
                 <ProductModal
                   productModal={productModal}
-                  isUpdate= {true}
-                  productData = {item}
+                  isUpdate={true}
+                  productData={item}
                   onClose={() => setProductModal(false)}
                 />
               )}
@@ -89,25 +108,22 @@ const ProductCard = (props:any) => {
           </Grid>
         ))}
       </Grid>
-  );
-  }
-  else{
+    );
+  } else {
     return (
       <Box
-       sx={{
-        height:"60vh",
-        display:'flex',
-        justifyContent:'center',
-        textAlign:'center',
-        alignItems:'center'
-       }}
+        sx={{
+          height: "60vh",
+          display: "flex",
+          justifyContent: "center",
+          textAlign: "center",
+          alignItems: "center",
+        }}
       >
-        <Typography color={'gray'}>Product not found.</Typography>
+        <Typography color={"gray"}>Product not found.</Typography>
       </Box>
-    )
+    );
   }
-
-
 };
 
 export default ProductCard;
