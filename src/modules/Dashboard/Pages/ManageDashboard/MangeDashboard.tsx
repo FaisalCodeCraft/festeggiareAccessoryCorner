@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import AdminCard from "./components/AdminCard/AdminCard";
 import AdminModal from "./components/AdminModal/AdminModal";
 import DashboardLayout from "DashboardLayout/DashboardLayout";
-import { get } from "react-hook-form";
 import { getAdmins } from "services/admin";
 
 const ManageDashboard = () => {

@@ -12,7 +12,7 @@ import { CATEGORIES, SORT_FILTER } from "constants/contents/data";
 const FilterProducts= (props:any) => {
   const { search, setSearch } = props;
   const [category, setCategory] = React.useState<string>('');
-
+console.log(category)
 
   return (
     <Box

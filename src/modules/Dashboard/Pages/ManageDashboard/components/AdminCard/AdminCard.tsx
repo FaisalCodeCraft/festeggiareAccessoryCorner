@@ -11,7 +11,6 @@ import {
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import OptionModal from "../OptionModal/OptionModal";
-import { Admin } from "types/types";
 // import { ADMIN_CARD } from "constants/contents/data";
 
 const AdminCard = (props: any) => {

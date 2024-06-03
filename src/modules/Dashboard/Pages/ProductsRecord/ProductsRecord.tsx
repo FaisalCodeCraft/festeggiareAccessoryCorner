@@ -18,7 +18,7 @@ const ProductsRecord = () => {
     } else {
       setProductTable(PRODUCT_DETAILS)
     }
-  }, [search]);
+  }, [search,productTable]);
 
 
 

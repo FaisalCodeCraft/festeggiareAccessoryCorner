@@ -20,6 +20,7 @@ import { AuthContext } from "context/authContext";
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  const context = useContext(AuthContext);
 
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -37,36 +38,36 @@ const LoginForm = () => {
 
   const formSubmitHandler = async (values: any) => {
     setIsLoading(true);
-    // setTimeout(() => {
-    //   navigate(ROUTES.DASHBOARD.MANAGE_ADMIN);
-    // }, 2000);
-try {
-  const singIn = async () => {
-    await signInWithEmailAndPassword(auth, values.email, values.password);
-  };
-  await singIn();
-  setIsLoading(false);
   
-} catch (error) {
-  setIsError(true)
-  setIsLoading(false)
-  console.log(error)
-}
-  
+    try {
+      const singIn = async () => {
+        await signInWithEmailAndPassword(auth, values.email, values.password);
+      };
+      await singIn();
+      setIsLoading(false);
+    } catch (error) {
+      setIsError(true);
+      setIsLoading(false);
+      console.log(error);
+    }
   };
 
   const signinWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     await signInWithPopup(auth, provider);
-    navigate(LANDING_ROUTES.HOME_PAGE)
   };
-  const context = useContext(AuthContext);
+
 
   useEffect(() => {
     if (context?.isLoggedIn && context.user.role) {
       navigate(ROUTES.DASHBOARD.MANAGE_ADMIN);
+    } else if (context.user && !context.user.role) {
+      navigate(LANDING_ROUTES.HOME_PAGE);
+    } else{
+      navigate(LANDING_ROUTES.HOME_PAGE)
     }
-  }, [context?.isLoggedIn]);
+  }, [context?.isLoggedIn,context.user,navigate]);
+
 
   return (
     <React.Fragment>

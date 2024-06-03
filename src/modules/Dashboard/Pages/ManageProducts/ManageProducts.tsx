@@ -42,7 +42,7 @@ const ManageProducts = () => {
       title="Add Products"
       buttonClick={() => setProductModal(true)}
     >
-      <FilterProducts search={filter} setSearch={setFilter} />
+      <FilterProducts search={filter} filterData={filterData} setSearch={setFilter} />
       <ProductCard productData={product ? product : []} />
       {productModal && (
         <DashProductModal

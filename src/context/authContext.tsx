@@ -25,6 +25,7 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  // console.log(currentUser, "<<<<<<<<<<<<<>>>>>>>>>>>>>");
 
   useEffect(() => {
     const IsLoggedIn = onAuthStateChanged(auth, async (user) => {
@@ -36,6 +37,10 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
           if (snapShotAdmin.exists()) {
             setCurrentUser(snapShotAdmin?.data() as any);
             setIsLoggedIn(true);
+          } else {
+            setCurrentUser(user as any);
+            setIsLoggedIn(true);
+
           }
         } else {
           setCurrentUser(null);
@@ -43,8 +48,7 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
         }
       } catch (error) {
         console.log(error);
-      }
-      finally {
+      } finally {
         setIsLoading(false);
       }
     });

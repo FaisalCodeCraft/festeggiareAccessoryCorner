@@ -14,7 +14,7 @@ import { CATEGORIES } from "constants/contents/data";
 import { useForm } from "react-hook-form";
 import { addProductSchema, editProductSchema } from "validation";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { inValidButton } from "modules/Dashboard/Pages/ManageAuth/components/LoginFom/LoginForm";
+import { inValidButton } from "components/LoginFom/LoginForm";
 import { addNewProducts } from "services/products";
 
 const DashProductModal = (props: any) => {
@@ -22,7 +22,7 @@ const DashProductModal = (props: any) => {
   // const navigate = useNavigate();
   const [isLoading, setIsLoading] = React.useState(false);
   const [category, setCategory] = React.useState<string>("");
-
+console.log(category)
   const {
     register,
     handleSubmit,
@@ -46,7 +46,7 @@ const DashProductModal = (props: any) => {
 
   React.useEffect(()=>{
     productData && setValue("profileImage", productData?.poster);
-  },[])
+  })
 
 
   
