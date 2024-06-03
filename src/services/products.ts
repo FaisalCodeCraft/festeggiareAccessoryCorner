@@ -39,14 +39,14 @@ export const addNewProducts = (values: any, productData: any) => {
 
       const url = await uploadFile({
         image: values?.productImage,
-        id: productData?.id,
+        id: newProductDataAdded?.id,
       } as any);
 
-      const adminUserDoc = doc(db, "products", newProductDataAdded?.id);
+      const productDoc = doc(db, "products", newProductDataAdded?.id);
 
-      await updateDoc(adminUserDoc, {
+      await updateDoc(productDoc, {
         productImage: url,
-        id: newProductDataAdded?.id,
+        productId: newProductDataAdded?.id,
       });
 
       resolve("New Product will be created");

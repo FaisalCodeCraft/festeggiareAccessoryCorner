@@ -25,10 +25,9 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  // console.log(currentUser, "<<<<<<<<<<<<<>>>>>>>>>>>>>");
 
   useEffect(() => {
-    const IsLoggedIn = onAuthStateChanged(auth, async (user) => {
+    onAuthStateChanged(auth, async (user) => {
       try {
         setIsLoading(true);
         if (user) {
@@ -39,8 +38,7 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
             setIsLoggedIn(true);
           } else {
             setCurrentUser(user as any);
-            setIsLoggedIn(true);
-
+            setIsLoggedIn(true)
           }
         } else {
           setCurrentUser(null);
@@ -52,7 +50,7 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
         setIsLoading(false);
       }
     });
-    return IsLoggedIn;
+    // return IsLoggedIn;
   }, []);
 
   const signout = () => {

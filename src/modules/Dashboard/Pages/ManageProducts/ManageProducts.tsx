@@ -30,7 +30,7 @@ const ManageProducts = () => {
   // get ProductsData
   React.useEffect(() => {
     const getAllProducts = async () => {
-      await getProducts(setProduct);
+      await getProducts(setProduct)
     };
     getAllProducts();
   }, []);

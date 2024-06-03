@@ -11,12 +11,11 @@ import { useNavigate } from "react-router-dom";
 import { LANDING_ROUTES, ROUTES } from "constants/contents/routes";
 import { signInFormSchema } from "validation";
 import {
-  GoogleAuthProvider,
   signInWithEmailAndPassword,
-  signInWithPopup,
 } from "firebase/auth";
 import { auth } from "config/firebase";
 import { AuthContext } from "context/authContext";
+import { signinWithGoogle } from "services/user";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -38,7 +37,7 @@ const LoginForm = () => {
 
   const formSubmitHandler = async (values: any) => {
     setIsLoading(true);
-  
+
     try {
       const singIn = async () => {
         await signInWithEmailAndPassword(auth, values.email, values.password);
@@ -50,24 +49,18 @@ const LoginForm = () => {
       setIsLoading(false);
       console.log(error);
     }
+
   };
 
-  const signinWithGoogle = async () => {
-    const provider = new GoogleAuthProvider();
-    await signInWithPopup(auth, provider);
-  };
-
+  
 
   useEffect(() => {
     if (context?.isLoggedIn && context.user.role) {
       navigate(ROUTES.DASHBOARD.MANAGE_ADMIN);
-    } else if (context.user && !context.user.role) {
-      navigate(LANDING_ROUTES.HOME_PAGE);
-    } else{
-      navigate(LANDING_ROUTES.HOME_PAGE)
+    }  else {
+      console.log("you are not logged in");
     }
-  }, [context?.isLoggedIn,context.user,navigate]);
-
+  }, [context?.isLoggedIn, context.user, navigate]);
 
   return (
     <React.Fragment>
@@ -118,6 +111,7 @@ const LoginForm = () => {
             render={({ field }) => (
               <TextField
                 focused
+                defaultValue={null}
                 error={!!errors.password}
                 helperText={errors?.password ? errors?.root?.message : ""}
                 {...field}

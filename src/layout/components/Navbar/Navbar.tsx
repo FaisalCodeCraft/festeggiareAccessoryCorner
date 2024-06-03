@@ -15,18 +15,20 @@ import { COLORS } from "constants/contents/color";
 import ToggleMode from "components/ToggleMode/ToggleMode";
 import CartModal from "components/CartModal/CartModal";
 import { ThemeContext } from "context/themeContext";
+import { AuthContext } from "context/authContext";
 
 const Navbar = () => {
   const { mode, key } = React.useContext(ThemeContext);
+  const { isLoggedIn } = React.useContext(AuthContext);
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [bgColor, setBgColor] = React.useState(false);
   const [color, setColor] = React.useState(false);
 
   const { pathname } = useLocation();
-  const navigate= useNavigate()
+  const navigate = useNavigate();
 
   const isSelectedProductUrl = pathname === LANDING_ROUTES.PRODUCTS_PAGE;
-  const isSlectedOrderUrl = pathname === LANDING_ROUTES.ORDER_PAGE
+  const isSlectedOrderUrl = pathname === LANDING_ROUTES.ORDER_PAGE;
 
   const changeBgColor = () => {
     if (window.scrollY >= 5) {
@@ -95,7 +97,7 @@ const Navbar = () => {
         </ListItem>
         <ListItem>
           <NavLink
-            to="/myOrders"
+            to={isLoggedIn ? "/myOrders" : "/"}
             style={({ isActive }: any) => {
               return isActive
                 ? { color: COLORS.pink.hotPink, textDecoration: "none" }
@@ -105,7 +107,7 @@ const Navbar = () => {
                   };
             }}
           >
-            My Order
+            Order
           </NavLink>
         </ListItem>
         <ListItem>
@@ -153,13 +155,19 @@ const Navbar = () => {
               ? "black"
               : mode === "dark" && bgColor
               ? "white"
-              : isSelectedProductUrl ||isSlectedOrderUrl
+              : isSelectedProductUrl || isSlectedOrderUrl
               ? "black"
               : "transparent",
           boxShadow: "none",
         }}
       >
-        <Toolbar sx={{ display: "flex", justifyContent: "space-between",alignItems:'center' }}>
+        <Toolbar
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -255,9 +263,9 @@ const Navbar = () => {
             </ListItem>
             <ListItem>
               <NavLink
-                to={LANDING_ROUTES.ORDER_PAGE}
+                to={isLoggedIn ? LANDING_ROUTES.ORDER_PAGE : "/"}
                 style={({ isActive }: any) => {
-                  return isActive
+                  return isActive && isLoggedIn
                     ? { color: COLORS.pink.hotPink, textDecoration: "none" }
                     : {
                         color: color && mode === "dark" ? "black" : "white",
@@ -299,14 +307,14 @@ const Navbar = () => {
               </NavLink>
             </ListItem>
             <ListItem>
-              <ToggleMode color={color } />
+              <ToggleMode color={color} />
             </ListItem>
           </List>
-          <Box display='flex' alignItems={'center'}>
-            <IconButton
-              onClick={()=>navigate(ROUTES.AUTH.SIGN_IN)}
-            ><PersonAddAlt1Rounded sx={{color:'white'}}/></IconButton>
-          <CartModal color={color } />
+          <Box display="flex" alignItems={"center"}>
+            <IconButton onClick={() => navigate(ROUTES.AUTH.SIGN_IN)}>
+              <PersonAddAlt1Rounded sx={{ color: "white" }} />
+            </IconButton>
+            <CartModal color={color} />
           </Box>
         </Toolbar>
       </AppBar>
