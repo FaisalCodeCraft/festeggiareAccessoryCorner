@@ -6,9 +6,12 @@ import CommonButton from "components/Button/Button";
 import { COLORS } from "constants/contents/color";
 import ProductModal from "../ProductModal/ProductModal";
 import { ThemeContext } from "context/themeContext";
+import { LANDING_ROUTES } from "constants/contents/routes";
+import { useNavigate } from "react-router-dom";
 
 const NewArrival = (props:any) => {
   const { title, productArray } = props;
+  const navigate = useNavigate()
   const { inCart, setInCart } = React.useContext(ThemeContext);
   const [productModal, setProductModal] = React.useState(false);
   const handleCart = (item:any) => {
@@ -32,7 +35,7 @@ const NewArrival = (props:any) => {
           {title}
         </Typography>
         <Box>
-          <CommonButton title="See All" />
+          <CommonButton title="See All" onClick={()=>navigate(LANDING_ROUTES.PRODUCTS_PAGE)}/>
         </Box>
       </Box>
 

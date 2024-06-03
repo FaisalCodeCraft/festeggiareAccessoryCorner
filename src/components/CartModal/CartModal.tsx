@@ -15,7 +15,7 @@ import { useSpring, animated } from "@react-spring/web";
 import React from "react";
 import { COLORS } from "constants/contents/color";
 import { ThemeContext } from "context/themeContext";
-import {  placeOrder } from "services/order";
+import { placeOrder } from "services/order";
 import { AuthContext } from "context/authContext";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "constants/contents/routes";
@@ -79,11 +79,11 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: {md:"68%",sm:"74%",xs:"80%"},
+  width: { md: "68%", sm: "74%", xs: "80%" },
   maxHeight: "76%",
   bgcolor: "background.paper",
   boxShadow: 24,
-  p: {md:"2.5em 2.5em 1.5em 2.5em",sm:"2.3em 2.3em 1.3em 2.3em",xs:2},
+  p: { md: "2.5em 2.5em 1.5em 2.5em", sm: "2.3em 2.3em 1.3em 2.3em", xs: 2 },
   overflowY: "scroll",
   overflowX: "hidden",
   borderRadius: 6,
@@ -101,10 +101,10 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
   const [open, setOpen] = React.useState<boolean>(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const { mode, inCart, setInCart, } = React.useContext(ThemeContext);
-  const {user}=React.useContext(AuthContext)
-  const navigate=useNavigate()
-  console.log(incDec);
+  const { mode, inCart, setInCart } = React.useContext(ThemeContext);
+  const { user } = React.useContext(AuthContext);
+  const navigate = useNavigate();
+
   const handleRemove = (item: CartItem) => {
     const removeItemFromCArt = inCart.filter((i: any) => i.id !== item.id);
     setInCart(removeItemFromCArt);
@@ -127,13 +127,13 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
     0
   );
 
-  const handlePurchase=()=>{
+  const handlePurchase = () => {
     if (user) {
-      placeOrder(inCart,totalPrice,user)
-    }else{
-      navigate(ROUTES.AUTH.SIGN_IN)
+      placeOrder(inCart, totalPrice, user);
+    } else {
+      navigate(ROUTES.AUTH.SIGN_IN);
     }
-  }
+  };
 
   return (
     <Box>
@@ -192,11 +192,16 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
               </Box>
             </Box>
             {inCart.map((item: any, i: any) => (
-              <Box key={i} display={{md:"flex"}}  alignItems={"center"} mt={3}>
+              <Box
+                key={i}
+                display={{ md: "flex" }}
+                alignItems={"center"}
+                mt={3}
+              >
                 <Box
                   position={"relative"}
-                  height={{md:"100px",sm:"100px",xs:"130px"}}
-                  width={{md:"100px",sm:"90px",xs:"auto"}}
+                  height={{ md: "100px", sm: "100px", xs: "130px" }}
+                  width={{ md: "100px", sm: "90px", xs: "auto" }}
                   sx={{
                     backgroundColor: "rgb(248, 247, 243)",
                     borderRadius: "8px",
@@ -212,9 +217,10 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
                 </Box>
                 <Box
                   mt={2}
-                  pb={{md:0,sm:0,xs:2}}
+                  pb={{ md: 0, sm: 0, xs: 2 }}
                   width={"100%"}
-                  display={"flex"} flexWrap={"wrap"}
+                  display={"flex"}
+                  flexWrap={"wrap"}
                   justifyContent={"space-around"}
                   alignItems={"center"}
                 >
@@ -228,16 +234,21 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
                   <Box
                     display={"flex"}
                     alignItems={"center"}
-                    py={{md:0,sm:0,xs:1}}
-
+                    py={{ md: 0, sm: 0, xs: 1 }}
                   >
                     {item.id === inCart[i].id && (
-                      <ExpandLess  sx={{cursor:"pointer"}} onClick={() => handleInc(i)} />
+                      <ExpandLess
+                        sx={{ cursor: "pointer" }}
+                        onClick={() => handleInc(i)}
+                      />
                     )}
                     <Typography fontWeight={400} px={1} fontSize={"large"}>
                       {item.quantity}
                     </Typography>
-                    <ExpandMore sx={{cursor:"pointer"}} onClick={() => handleDec(item)} />
+                    <ExpandMore
+                      sx={{ cursor: "pointer" }}
+                      onClick={() => handleDec(item)}
+                    />
                   </Box>
                   <Typography fontWeight={"bold"} color={COLORS.gray.light}>
                     ${item?.price * item?.quantity}
@@ -261,13 +272,13 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
               )}
             </Box>
             <Box
-              display={{md:"flex"}}
+              display={{ md: "flex" }}
               justifyContent={"space-between"}
               alignItems={"center"}
               color={COLORS.pink.hotPink}
-              mt={{md:7,sm:5,xs:0}}
+              mt={{ md: 7, sm: 5, xs: 0 }}
               py={1}
-              px={{md:3,sm:2,xs:0}}
+              px={{ md: 3, sm: 2, xs: 0 }}
             >
               <Box display={"flex"}>
                 <Typography pr={0.5}>Products:</Typography>

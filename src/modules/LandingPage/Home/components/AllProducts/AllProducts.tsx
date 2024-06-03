@@ -17,6 +17,8 @@ import { COLORS } from "constants/contents/color";
 import CommonButton from "components/Button/Button";
 import { ThemeContext } from "context/themeContext";
 import { getProducts } from "services/products";
+import { useNavigate } from "react-router-dom";
+import { LANDING_ROUTES } from "constants/contents/routes";
 // import { useNavigate } from "react-router-dom";
 export interface AllProductsPropsType{
   skipPro?:number
@@ -24,6 +26,7 @@ export interface AllProductsPropsType{
 
 const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
   const { skipPro } = props;
+  const navigate = useNavigate()
   const { inCart, setInCart, handleKey } = React.useContext(ThemeContext);
   const [productId, setProductId] = React.useState<null>();
   const [product, setProduct] = React.useState<any>([]);
@@ -122,7 +125,7 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
           All Categories
         </Typography>
 
-        {!skipPro && <CommonButton title="See All" />}
+        {!skipPro && <CommonButton title="See All" onClick={()=>navigate(LANDING_ROUTES.PRODUCTS_PAGE)} />}
         {skipPro && (
           <TextField
             select
