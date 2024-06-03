@@ -18,6 +18,7 @@ import styled from "styled-components";
 import { COLORS } from "constants/contents/color";
 import CommonButton from "components/Button/Button";
 import { ThemeContext } from "context/themeContext";
+import { getProducts } from "services/products";
 // import { useNavigate } from "react-router-dom";
 export interface AllProductsPropsType{
   skipPro?:number
@@ -27,6 +28,7 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
   const { skipPro } = props;
   const { inCart, setInCart, handleKey } = React.useContext(ThemeContext);
   const [productId, setProductId] = React.useState<null>();
+  const [product, setProduct] = React.useState<any>([]);
   // const [page, setPage] = React.useState<number>(1);
   const [productModal, setProductModal] = React.useState<boolean>(false);
   const [skip, setSkip] = React.useState<number>(0);
@@ -83,6 +85,14 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
     handleKey();
   };
 
+  React.useEffect(() => {
+    const getAllProducts = async () => {
+      await getProducts(setProduct)
+    };
+    getAllProducts();
+  }, []);
+
+
   if (isLoading) {
     return (
       <Box sx={{ width: "40%", m: "auto", mt: 4 }}>
@@ -135,7 +145,7 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
             {error?.message}
           </Typography>
         )}
-        {products?.map((item: any, index: any) => (
+        {product?.map((item: any, index: any) => (
           <Grid item md={3} sm={6} xs={12} key={index}>
             <Box
               position={"relative"}
