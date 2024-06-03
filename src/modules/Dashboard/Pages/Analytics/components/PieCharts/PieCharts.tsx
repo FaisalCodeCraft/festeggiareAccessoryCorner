@@ -29,7 +29,7 @@ export default class PieChartGraph extends PureComponent {
     return (
       //   <ResponsiveContainer width="100%" height="100%">
       <Paper elevation={4}>
-        <PieChart width={300} height={400}>
+        <PieChart width={300} height={360}>
           <Pie
             data={data01}
             dataKey="value"
