@@ -2,11 +2,11 @@ import { Box, Button } from '@mui/material'
 import { COLORS } from 'constants/contents/color'
 
 const CommonButton = (props:any) => {
-    const {title} = props
+    const {title,onClick} = props
   return (
     <div>
       <Box>
-          <Button sx={btnStyle}>{title}</Button>
+          <Button sx={btnStyle} onClick={onClick}>{title}</Button>
         </Box>
     </div>
   )

@@ -101,7 +101,6 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
   const handleClose = () => setOpen(false);
   const { mode, inCart, setInCart, } = React.useContext(ThemeContext);
   const {user}=React.useContext(AuthContext)
-  console.log(incDec);
   const handleRemove = (item: CartItem) => {
     const removeItemFromCArt = inCart.filter((i: any) => i.id !== item.id);
     setInCart(removeItemFromCArt);
