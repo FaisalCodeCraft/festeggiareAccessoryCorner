@@ -5,9 +5,7 @@ import {
   Grid,
   LinearProgress,
   MenuItem,
-  Pagination,
   Rating,
-  Stack,
   TextField,
   Typography,
 } from "@mui/material";
@@ -30,7 +28,7 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
   // const [page, setPage] = React.useState<number>(1);
   const [productModal, setProductModal] = React.useState<boolean>(false);
   const [skip, setSkip] = React.useState<number>(0);
-  const [prodctCategory, setProdctCategory] = React.useState<string>("");
+  const [productCategory, setProductCategory] = React.useState<string>("");
 
   // const navigate = useNavigate();
 
@@ -44,8 +42,8 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
     let url = `https://dummyjson.com/products?limit=${
       skipPro ? 8 : 4
     }&skip=${skip}`;
-    if (prodctCategory && prodctCategory !== "All Options") {
-      url = `https://dummyjson.com/products/category/${prodctCategory}?limit=${skip}&skip=${skip}`;
+    if (productCategory && productCategory !== "All Options") {
+      url = `https://dummyjson.com/products/category/${productCategory}?limit=${skipPro}&skip=${skip}`;
     }
     const res = await fetch(url);
     const data = await res.json();
@@ -57,7 +55,7 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
     error,
     data: products,
   } = useQuery({
-    queryKey: ["products", skip, prodctCategory],
+    queryKey: ["products", skip, productCategory],
     queryFn: fecthProducts,
     placeholderData: keepPreviousData,
   });
@@ -65,7 +63,7 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
   const { data: categories } = useQuery({
     queryKey: ["categories", skip],
     queryFn: async () => {
-      return await fetch(`https://dummyjson.com/products/categories`).then(
+      return await fetch(`https://dummyjson.com/products/category-list`).then(
         (res) => res.json()
       );
     },
@@ -101,6 +99,7 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
     );
   }
 
+  
   return (
     <Box px={4}>
       <Box
@@ -118,7 +117,7 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
           <TextField
             select
             defaultValue={"All Options"}
-            onChange={(e) => setProdctCategory(e.target.value)}
+            onChange={(e) => setProductCategory(e.target.value)}
           >
             <MenuItem value={"All Options"}>All Options</MenuItem>
             {categories?.map((category: any, i: any) => (
@@ -200,13 +199,12 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
             sx={btnStyle}
             onClick={() => setSkip((prev) => prev - (skipPro ? 8 : 4))}
             // disabled={
-            //   skip === 0 || (prodctCategory && prodctCategory !== "All Options")
+            //   skip === 0 || (productCategory && productCategory !== "All Options")
             // }
           >
             Prev
           </Button>
-
-          <Stack>
+          {/* <Stack>
             <Pagination
               sx={{
                 ".MuiPaginationItem-root": {
@@ -236,13 +234,13 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
               hideNextButton
               hidePrevButton
             />
-          </Stack>
+          </Stack> */}
           <Button
             sx={btnStyle}
             onClick={() => setSkip((prev) => prev + (skipPro ? skipPro : 4))}
             // disabled={
             //   skip + (skipPro ? 8 : 4) >= 100 ||
-            //   (prodctCategory && prodctCategory !== "All Options")
+            //   (productCategory && productCategory !== "All Options")
             // }
           >
             Next

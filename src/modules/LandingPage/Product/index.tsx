@@ -18,7 +18,7 @@ const Product: React.FC = () => {
         ALL PRODUCTS
       </Typography>
       <Box mt={5}>
-        <AllProducts skipPro={8 as number}/>
+        <AllProducts skipPro={8}/>
       </Box>
     </>
   );

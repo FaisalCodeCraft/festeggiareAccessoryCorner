@@ -125,7 +125,7 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
     <Box>
       <Box sx={{ cursor: "pointer", pr: { md: 3 }, display: "flex" }}>
         <Typography color={color && mode === "dark" ? "black" : "white"}>
-          $ {totalPrice}
+          {/* $ {totalPrice} */}
           <StyledBadge badgeContent={inCart?.length} showZero>
             <ShoppingCart sx={{ ml: 1 }} onClick={handleOpen} />
           </StyledBadge>
