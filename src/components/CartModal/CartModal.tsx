@@ -17,6 +17,8 @@ import { COLORS } from "constants/contents/color";
 import { ThemeContext } from "context/themeContext";
 import {  placeOrder } from "services/order";
 import { AuthContext } from "context/authContext";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "constants/contents/routes";
 
 interface CartItem {
   id: number;
@@ -101,6 +103,7 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
   const handleClose = () => setOpen(false);
   const { mode, inCart, setInCart, } = React.useContext(ThemeContext);
   const {user}=React.useContext(AuthContext)
+  const navigate=useNavigate()
   console.log(incDec);
   const handleRemove = (item: CartItem) => {
     const removeItemFromCArt = inCart.filter((i: any) => i.id !== item.id);
@@ -123,6 +126,14 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
     (initial: any, curr: any) => initial + curr.price * curr.quantity,
     0
   );
+
+  const handlePurchase=()=>{
+    if (user) {
+      placeOrder(inCart,totalPrice,user)
+    }else{
+      navigate(ROUTES.AUTH.SIGN_IN)
+    }
+  }
 
   return (
     <Box>
@@ -282,7 +293,7 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
                     color: "white",
                   },
                 }}
-                onClick={() => placeOrder(inCart,totalPrice,user)}
+                onClick={handlePurchase}
               >
                 Purchase
               </Button>

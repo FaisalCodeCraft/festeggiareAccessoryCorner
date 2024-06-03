@@ -10,7 +10,7 @@ export interface AuthContextValuesType {
   loading: boolean;
 }
 export type User = {
-  firstname: string;
+  firstName: string;
   role: "Administrator" | "Admin" | "Moderator";
 };
 export const AuthContext = createContext<AuthContextValuesType>({
@@ -36,6 +36,7 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
           if (snapShotAdmin.exists()) {
             setCurrentUser(snapShotAdmin?.data() as any);
             setIsLoggedIn(true);
+     
           } else {
             setCurrentUser(user as any);
             setIsLoggedIn(true)

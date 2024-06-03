@@ -63,6 +63,8 @@ export const SideBar = (props: any) => {
   const isActiveAnalyticsURL = pathname === ROUTES.DASHBOARD.ANALYTICS;
   const useAuthContext = useContext(AuthContext);
   const { signout } = useAuthContext;
+
+  
   const logout = async () => {
     try {
       await signOut(auth);

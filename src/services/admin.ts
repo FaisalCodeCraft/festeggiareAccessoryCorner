@@ -32,13 +32,7 @@ const uploadFile = async ({ image, id }: any) => {
 export const addNewAdmin = async (values: Admin, onClose: () => void) => {
   return new Promise(async (resolve, reject) => {
     try {
-      // const addNewAdmin = await addDoc(adminCollectionRef, {
-      //   role: values.role,
-      //   firstName: values.firstName,
-      //   lastName: values.lastName,
-      //   email: values.email,
-      //   phoneNumber: values.phoneNumber,
-      // });
+
       const addNewAdminAuth = await createUserWithEmailAndPassword(
         auth,
         values?.email,

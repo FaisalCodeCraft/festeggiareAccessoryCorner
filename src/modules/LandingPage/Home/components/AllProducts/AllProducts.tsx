@@ -144,7 +144,61 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
             {error?.message}
           </Typography>
         )}
-        {product?.map((item: any, index: any) => (
+
+{product?.map((item: any, index: any) => (
+          <Grid item md={3} sm={6} xs={12} key={index}>
+            <Box
+              position={"relative"}
+              height={"300px"}
+              width={"100%"}
+              textAlign={"center"}
+              sx={{ backgroundColor: "rgb(248, 247, 243)" }}
+              onClick={() => {
+                setProductId(item?.id);
+                setProductModal(!productModal);
+              }}
+            >
+              <Poster>
+                <img
+                  width={"100%"}
+                  height={"100%"}
+                  style={{ objectFit: "cover" }}
+                  src={item.productImage}
+                  alt={item.brand}
+                />
+              </Poster>
+              <Icon>
+                <ShoppingCart sx={IconBtn} onClick={() => handleCart(item)} />
+              </Icon>
+            </Box>
+            <Box mt={2}>
+              <Typography color={COLORS.gray.light} fontSize={"small"} mb={2}>
+                {item.category}
+              </Typography>
+              <Typography fontWeight={"lighter"} fontSize={"large"}>
+                {item.title}
+              </Typography>
+              <Rating
+                sx={{ color: COLORS.gray.dark, my: 0.6 }}
+                name="size-small"
+                defaultValue={item.rating}
+                precision={0.5}
+                size="small"
+              />
+              <Typography fontWeight={"bold"} color={COLORS.gray.light}>
+                ${item.price}
+              </Typography>
+            </Box>
+            {productModal && productId === item?.id && (
+              <ProductModal
+                productModal={productModal}
+                productData={item}
+                onClose={() => setProductModal(false)}
+              />
+            )}
+          </Grid>
+        ))}
+        {products?.map((item: any, index: any) => (
           <Grid item md={3} sm={6} xs={12} key={index}>
             <Box
               position={"relative"}
@@ -197,6 +251,7 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
             )}
           </Grid>
         ))}
+      
       </Grid>
       {skipPro ? (
         <Box

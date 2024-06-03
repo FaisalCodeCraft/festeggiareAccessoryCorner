@@ -10,9 +10,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { LANDING_ROUTES, ROUTES } from "constants/contents/routes";
 import { signInFormSchema } from "validation";
-import {
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "config/firebase";
 import { AuthContext } from "context/authContext";
 import { signinWithGoogle } from "services/user";
@@ -49,15 +47,14 @@ const LoginForm = () => {
       setIsLoading(false);
       console.log(error);
     }
-
   };
-
-  
 
   useEffect(() => {
     if (context?.isLoggedIn && context.user.role) {
       navigate(ROUTES.DASHBOARD.MANAGE_ADMIN);
-    }  else {
+    } else if (context?.isLoggedIn && !context.user.role) {
+      navigate(LANDING_ROUTES.HOME_PAGE);
+    } else {
       console.log("you are not logged in");
     }
   }, [context?.isLoggedIn, context.user, navigate]);
