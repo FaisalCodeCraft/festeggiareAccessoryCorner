@@ -1,7 +1,5 @@
-import { Close } from "@mui/icons-material";
-import { Box, Dialog, IconButton, TextField, Typography } from "@mui/material";
+import { Box, Dialog, TextField, Typography } from "@mui/material";
 import CommonButton from "components/Button/Button";
-import React, { useState } from "react";
 
 const PhoneNoDialog = (props: any) => {
   const { setPhoneNo,setIsContactNo,isContactNo } = props;

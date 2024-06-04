@@ -12,7 +12,7 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import { useSpring, animated } from "@react-spring/web";
-import React, { useEffect } from "react";
+import React from "react";
 import { COLORS } from "constants/contents/color";
 import { ThemeContext } from "context/themeContext";
 import { placeOrder } from "services/order";
@@ -103,6 +103,7 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
   const { mode, inCart, setInCart } = React.useContext(ThemeContext);
   let { user } = React.useContext(AuthContext);
   const [incDec, setIncDec] = React.useState<number>(0);
+  console.log(incDec)
   const [open, setOpen] = React.useState<boolean>(false);
   const [isContactNo, setIsContactNo] = React.useState<string>("");
   const [phoneNo, setPhoneNo] = React.useState<string>();
