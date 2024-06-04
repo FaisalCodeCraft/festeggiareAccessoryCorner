@@ -10,7 +10,7 @@ const Home = () => {
       <Header />
       <NewArrival title={"New Arrivals"} productArray={NEW_ARRIVALS} />
       <NewArrival title={"Top Rated"} productArray={TOP_RATED} />
-      <AllProducts />
+      <AllProducts skipPro={4}/>
     </>
   );
 };

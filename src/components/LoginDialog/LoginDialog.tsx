@@ -50,7 +50,7 @@ const LoginDialog = () => {
     checkIsloggedIn()
   }, [context.isLoggedIn,isOpen]);
 
-  const handleClose = () => {
+ const handleClose = () => {
     setIsOpen(false);
   };
 

@@ -10,7 +10,6 @@ const userCollectionRef = collection(db, "users");
 
 export const addNewUser = async () => {
   await onAuthStateChanged(auth, async (user: any) => {
-    console.log(user);
     return new Promise(async (resolve, reject) => {
       try {
         const userDocRef = doc(db, "users", user?.uid);

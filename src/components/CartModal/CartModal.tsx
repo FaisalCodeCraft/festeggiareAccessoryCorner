@@ -12,13 +12,16 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import { useSpring, animated } from "@react-spring/web";
-import React from "react";
+import React, { useEffect } from "react";
 import { COLORS } from "constants/contents/color";
 import { ThemeContext } from "context/themeContext";
 import { placeOrder } from "services/order";
 import { AuthContext } from "context/authContext";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "constants/contents/routes";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "config/firebase";
+import PhoneNoDialog from "components/PhoneNoDialog/PhoneNoDialog";
 
 interface CartItem {
   id: number;
@@ -97,22 +100,30 @@ const style = {
 };
 
 const CartModal: React.FC<CartModalProps> = ({ color }) => {
+  const { mode, inCart, setInCart } = React.useContext(ThemeContext);
+  let { user } = React.useContext(AuthContext);
   const [incDec, setIncDec] = React.useState<number>(0);
   const [open, setOpen] = React.useState<boolean>(false);
+  const [isContactNo, setIsContactNo] = React.useState<string>("");
+  const [phoneNo, setPhoneNo] = React.useState<string>();
+  const [message, setMessage] = React.useState<string[]>([]);
+  const [loading, setLoading] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const { mode, inCart, setInCart } = React.useContext(ThemeContext);
-  const { user } = React.useContext(AuthContext);
+
+  let userData: any;
   const navigate = useNavigate();
 
   const handleRemove = (item: CartItem) => {
     const removeItemFromCArt = inCart.filter((i: any) => i.id !== item.id);
     setInCart(removeItemFromCArt);
+    setLoading(false);
   };
 
   const handleInc = (i: number) => {
     setIncDec((prev) => prev + 1);
     inCart[i].quantity = (inCart[i]?.quantity || 0) + 1;
+    setLoading(false);
   };
 
   const handleDec = (item: CartItem) => {
@@ -120,6 +131,7 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
     if (item.quantity > 1) {
       item.quantity = item?.quantity - 1;
     }
+    setLoading(false);
   };
 
   const totalPrice = inCart.reduce(
@@ -127,11 +139,61 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
     0
   );
 
-  const handlePurchase = () => {
-    if (user) {
-      placeOrder(inCart, totalPrice, user);
-    } else {
+  const handleContactNo = async () => {
+    try {
+      if (user) {
+        const userDocRef = await doc(db, "users", user?.uid);
+        const snapShotUser = await getDoc(userDocRef);
+        if (snapShotUser?.data()?.phoneNumber === null) {
+          setIsContactNo("NotExist");
+          await updateDoc(userDocRef, {
+            phoneNumber: phoneNo,
+          });
+        } else {
+          userData = snapShotUser?.data();
+          setIsContactNo("");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handlePurchase = async () => {
+    // check if user exist
+    if (!user) {
       navigate(ROUTES.AUTH.SIGN_IN);
+    }
+    // check for phone
+    await handleContactNo();
+    // Check if Cart have any product
+    if (inCart?.length < 0) {
+      setMessage(["No Product Selected"]);
+      return;
+    }
+
+    // Check if Product Quantity is Matching
+    const checkProductQuantity = inCart?.map(async (item: any, i: number) => {
+      const productDocRef = doc(db, "products", item?.productId);
+      const snapProduct = await getDoc(productDocRef);
+      if (snapProduct.data()?.quantity >= item?.quantity) {
+        return snapProduct.data();
+      } else {
+        const allMessages = message;
+        allMessages.push(
+          `${snapProduct.data()?.title} are available only ${
+            snapProduct.data()?.quantity
+          } quantity`
+        );
+        setMessage(allMessages);
+        setLoading(true);
+        return;
+      }
+    });
+    const test = await Promise.all(checkProductQuantity);
+    const test2 = test.filter((i) => i !== undefined);
+    if (test2.length === test.length) {
+      placeOrder(inCart, totalPrice, userData);
     }
   };
 
@@ -160,6 +222,13 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
       >
         <Fade in={open}>
           <Box sx={style}>
+            {/* {isContactNo === "NotExist" && ( */}
+            <PhoneNoDialog
+              setPhoneNo={setPhoneNo}
+              isContactNo={isContactNo}
+              setIsContactNo={setIsContactNo}
+            />
+            {/* )} */}
             <Box
               display={"flex"}
               justifyContent={"space-between"}
@@ -194,7 +263,7 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
             {inCart.map((item: any, i: any) => (
               <Box
                 key={i}
-                display={{ md: "flex" }}
+                display={{ md: "flex", sm: "flex" }}
                 alignItems={"center"}
                 mt={3}
               >
@@ -272,7 +341,7 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
               )}
             </Box>
             <Box
-              display={{ md: "flex" }}
+              display={{ md: "flex", sm: "flex" }}
               justifyContent={"space-between"}
               alignItems={"center"}
               color={COLORS.pink.hotPink}
@@ -305,10 +374,18 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
                   },
                 }}
                 onClick={handlePurchase}
+                disabled={inCart.length < 1 || loading}
               >
-                Purchase
+                {loading ? "Loading" : "Purchase"}
               </Button>
             </Box>
+            {inCart.length > 0 &&
+              message.length > 0 &&
+              message?.map((e, i) => (
+                <Typography key={i} color={"red"}>
+                  {e}
+                </Typography>
+              ))}
           </Box>
         </Fade>
       </Modal>

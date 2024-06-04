@@ -39,6 +39,7 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
      
           } else {
             setCurrentUser(user as any);
+            console.log(user)
             setIsLoggedIn(true)
           }
         } else {

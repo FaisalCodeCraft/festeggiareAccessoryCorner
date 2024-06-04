@@ -20,13 +20,13 @@ import { getProducts } from "services/products";
 import { useNavigate } from "react-router-dom";
 import { LANDING_ROUTES } from "constants/contents/routes";
 // import { useNavigate } from "react-router-dom";
-export interface AllProductsPropsType{
-  skipPro?:number
+export interface AllProductsPropsType {
+  skipPro?: number;
 }
 
 const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
   const { skipPro } = props;
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { inCart, setInCart, handleKey } = React.useContext(ThemeContext);
   const [productId, setProductId] = React.useState<null>();
   const [product, setProduct] = React.useState<any>([]);
@@ -41,12 +41,9 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
   //   setPage(data);
   // };
 
-  
 
   const fecthProducts = async () => {
-    let url = `https://dummyjson.com/products?limit=${
-      skipPro ? 8 : 4
-    }&skip=${skip}`;
+    let url = `https://dummyjson.com/products?limit=${skipPro}&skip=${skip}`;
     if (productCategory && productCategory !== "All Options") {
       url = `https://dummyjson.com/products/category/${productCategory}?limit=${skipPro}&skip=${skip}`;
     }
@@ -88,11 +85,10 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
 
   React.useEffect(() => {
     const getAllProducts = async () => {
-      await getProducts(setProduct)
+      await getProducts(setProduct);
     };
     getAllProducts();
   }, []);
-
 
   if (isLoading) {
     return (
@@ -112,7 +108,6 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
     );
   }
 
-  
   return (
     <Box px={4}>
       <Box
@@ -125,7 +120,12 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
           All Categories
         </Typography>
 
-        {!skipPro && <CommonButton title="See All" onClick={()=>navigate(LANDING_ROUTES.PRODUCTS_PAGE)} />}
+        {!skipPro && (
+          <CommonButton
+            title="See All"
+            onClick={() => navigate(LANDING_ROUTES.PRODUCTS_PAGE)}
+          />
+        )}
         {skipPro && (
           <TextField
             select
@@ -148,7 +148,7 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
           </Typography>
         )}
 
-{product?.map((item: any, index: any) => (
+        {product?.map((item: any, index: any) => (
           <Grid item md={3} sm={6} xs={12} key={index}>
             <Box
               position={"relative"}
@@ -254,7 +254,6 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
             )}
           </Grid>
         ))}
-      
       </Grid>
       {skipPro ? (
         <Box
