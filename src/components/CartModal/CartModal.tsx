@@ -18,6 +18,9 @@ import { ThemeContext } from "context/themeContext";
 import {  placeOrder } from "services/order";
 import { AuthContext } from "context/authContext";
 import { useNavigate } from "react-router-dom";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "config/firebase";
+import { ROUTES } from "constants/contents/routes";
 
 interface CartItem {
   id: number;
@@ -110,8 +113,7 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
 
   // remove one element from cart
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  
   const { mode, inCart, setInCart, } = React.useContext(ThemeContext);
   const {user}=React.useContext(AuthContext)
  const handleRemove = (item: CartItem) => {
