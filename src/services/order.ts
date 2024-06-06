@@ -1,5 +1,5 @@
 import { db } from "config/firebase";
-import { addDoc, collection, doc, getDoc, updateDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, onSnapshot, updateDoc } from "firebase/firestore";
 
 const orderCollectionRef = collection(db, "orders");
 const date = new Date();
@@ -51,6 +51,26 @@ export const placeOrder = (inCart: any, totalPrice: number, user: any) => {
       });
 
       resolve("New Product order placed");
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
+
+export const getOrderProduct = () => {
+  return new Promise<any[]>((resolve, reject) => {
+    try {
+      const orderProduct = onSnapshot(orderCollectionRef, (snapshot) => {
+        const orders: any[] = [];
+        snapshot.docs.map((doc) => {
+          console.log(doc.data(),'}{}{}{}{}{}{')
+          orders.push({...doc.data(),id: doc.id,  });
+        });
+        console.log(orders,'||||||||||||||||||')
+        resolve(orders);
+      });
+      return orderProduct;
     } catch (error) {
       reject(error);
     }

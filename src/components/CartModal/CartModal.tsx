@@ -15,13 +15,8 @@ import { useSpring, animated } from "@react-spring/web";
 import React from "react";
 import { COLORS } from "constants/contents/color";
 import { ThemeContext } from "context/themeContext";
-import { placeOrder } from "services/order";
+import {  placeOrder } from "services/order";
 import { AuthContext } from "context/authContext";
-import { useNavigate } from "react-router-dom";
-import { ROUTES } from "constants/contents/routes";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { db } from "config/firebase";
-import PhoneNoDialog from "components/PhoneNoDialog/PhoneNoDialog";
 
 interface CartItem {
   id: number;
@@ -82,11 +77,11 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: { md: "68%", sm: "74%", xs: "80%" },
+  width: {md:"68%",sm:"74%",xs:"80%"},
   maxHeight: "76%",
   bgcolor: "background.paper",
   boxShadow: 24,
-  p: { md: "2.5em 2.5em 1.5em 2.5em", sm: "2.3em 2.3em 1.3em 2.3em", xs: 2 },
+  p: {md:"2.5em 2.5em 1.5em 2.5em",sm:"2.3em 2.3em 1.3em 2.3em",xs:2},
   overflowY: "scroll",
   overflowX: "hidden",
   borderRadius: 6,
@@ -100,31 +95,20 @@ const style = {
 };
 
 const CartModal: React.FC<CartModalProps> = ({ color }) => {
-  const { mode, inCart, setInCart } = React.useContext(ThemeContext);
-  let { user } = React.useContext(AuthContext);
   const [incDec, setIncDec] = React.useState<number>(0);
-  console.log(incDec)
   const [open, setOpen] = React.useState<boolean>(false);
-  const [isContactNo, setIsContactNo] = React.useState<string>("");
-  const [phoneNo, setPhoneNo] = React.useState<string>();
-  const [message, setMessage] = React.useState<string[]>([]);
-  const [loading, setLoading] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  let userData: any;
-  const navigate = useNavigate();
-
+  const { mode, inCart, setInCart, } = React.useContext(ThemeContext);
+  const {user}=React.useContext(AuthContext)
   const handleRemove = (item: CartItem) => {
     const removeItemFromCArt = inCart.filter((i: any) => i.id !== item.id);
     setInCart(removeItemFromCArt);
-    setLoading(false);
   };
 
   const handleInc = (i: number) => {
     setIncDec((prev) => prev + 1);
     inCart[i].quantity = (inCart[i]?.quantity || 0) + 1;
-    setLoading(false);
   };
 
   const handleDec = (item: CartItem) => {
@@ -132,71 +116,12 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
     if (item.quantity > 1) {
       item.quantity = item?.quantity - 1;
     }
-    setLoading(false);
   };
 
   const totalPrice = inCart.reduce(
     (initial: any, curr: any) => initial + curr.price * curr.quantity,
     0
   );
-
-  const handleContactNo = async () => {
-    try {
-      if (user) {
-        const userDocRef = await doc(db, "users", user?.uid);
-        const snapShotUser = await getDoc(userDocRef);
-        if (snapShotUser?.data()?.phoneNumber === null) {
-          setIsContactNo("NotExist");
-          await updateDoc(userDocRef, {
-            phoneNumber: phoneNo,
-          });
-        } else {
-          userData = snapShotUser?.data();
-          setIsContactNo("");
-        }
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handlePurchase = async () => {
-    // check if user exist
-    if (!user) {
-      navigate(ROUTES.AUTH.SIGN_IN);
-    }
-    // check for phone
-    await handleContactNo();
-    // Check if Cart have any product
-    if (inCart?.length < 0) {
-      setMessage(["No Product Selected"]);
-      return;
-    }
-
-    // Check if Product Quantity is Matching
-    const checkProductQuantity = inCart?.map(async (item: any, i: number) => {
-      const productDocRef = doc(db, "products", item?.productId);
-      const snapProduct = await getDoc(productDocRef);
-      if (snapProduct.data()?.quantity >= item?.quantity) {
-        return snapProduct.data();
-      } else {
-        const allMessages = message;
-        allMessages.push(
-          `${snapProduct.data()?.title} are available only ${
-            snapProduct.data()?.quantity
-          } quantity`
-        );
-        setMessage(allMessages);
-        setLoading(true);
-        return;
-      }
-    });
-    const test = await Promise.all(checkProductQuantity);
-    const test2 = test.filter((i) => i !== undefined);
-    if (test2.length === test.length) {
-      placeOrder(inCart, totalPrice, userData);
-    }
-  };
 
   return (
     <Box>
@@ -223,13 +148,6 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
       >
         <Fade in={open}>
           <Box sx={style}>
-            {/* {isContactNo === "NotExist" && ( */}
-            <PhoneNoDialog
-              setPhoneNo={setPhoneNo}
-              isContactNo={isContactNo}
-              setIsContactNo={setIsContactNo}
-            />
-            {/* )} */}
             <Box
               display={"flex"}
               justifyContent={"space-between"}
@@ -262,16 +180,11 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
               </Box>
             </Box>
             {inCart.map((item: any, i: any) => (
-              <Box
-                key={i}
-                display={{ md: "flex", sm: "flex" }}
-                alignItems={"center"}
-                mt={3}
-              >
+              <Box key={i} display={{md:"flex"}}  alignItems={"center"} mt={3}>
                 <Box
                   position={"relative"}
-                  height={{ md: "100px", sm: "100px", xs: "130px" }}
-                  width={{ md: "100px", sm: "90px", xs: "auto" }}
+                  height={{md:"100px",sm:"100px",xs:"130px"}}
+                  width={{md:"100px",sm:"90px",xs:"auto"}}
                   sx={{
                     backgroundColor: "rgb(248, 247, 243)",
                     borderRadius: "8px",
@@ -287,10 +200,9 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
                 </Box>
                 <Box
                   mt={2}
-                  pb={{ md: 0, sm: 0, xs: 2 }}
+                  pb={{md:0,sm:0,xs:2}}
                   width={"100%"}
-                  display={"flex"}
-                  flexWrap={"wrap"}
+                  display={"flex"} flexWrap={"wrap"}
                   justifyContent={"space-around"}
                   alignItems={"center"}
                 >
@@ -304,21 +216,16 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
                   <Box
                     display={"flex"}
                     alignItems={"center"}
-                    py={{ md: 0, sm: 0, xs: 1 }}
+                    py={{md:0,sm:0,xs:1}}
+
                   >
                     {item.id === inCart[i].id && (
-                      <ExpandLess
-                        sx={{ cursor: "pointer" }}
-                        onClick={() => handleInc(i)}
-                      />
+                      <ExpandLess  sx={{cursor:"pointer"}} onClick={() => handleInc(i)} />
                     )}
                     <Typography fontWeight={400} px={1} fontSize={"large"}>
                       {item.quantity}
                     </Typography>
-                    <ExpandMore
-                      sx={{ cursor: "pointer" }}
-                      onClick={() => handleDec(item)}
-                    />
+                    <ExpandMore sx={{cursor:"pointer"}} onClick={() => handleDec(item)} />
                   </Box>
                   <Typography fontWeight={"bold"} color={COLORS.gray.light}>
                     ${item?.price * item?.quantity}
@@ -342,13 +249,13 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
               )}
             </Box>
             <Box
-              display={{ md: "flex", sm: "flex" }}
+              display={{md:"flex"}}
               justifyContent={"space-between"}
               alignItems={"center"}
               color={COLORS.pink.hotPink}
-              mt={{ md: 7, sm: 5, xs: 0 }}
+              mt={{md:7,sm:5,xs:0}}
               py={1}
-              px={{ md: 3, sm: 2, xs: 0 }}
+              px={{md:3,sm:2,xs:0}}
             >
               <Box display={"flex"}>
                 <Typography pr={0.5}>Products:</Typography>
@@ -374,19 +281,11 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
                     color: "white",
                   },
                 }}
-                onClick={handlePurchase}
-                disabled={inCart.length < 1 || loading}
+                onClick={() => placeOrder(inCart,totalPrice,user)}
               >
-                {loading ? "Loading" : "Purchase"}
+                Purchase
               </Button>
             </Box>
-            {inCart.length > 0 &&
-              message.length > 0 &&
-              message?.map((e, i) => (
-                <Typography key={i} color={"red"}>
-                  {e}
-                </Typography>
-              ))}
           </Box>
         </Fade>
       </Modal>
