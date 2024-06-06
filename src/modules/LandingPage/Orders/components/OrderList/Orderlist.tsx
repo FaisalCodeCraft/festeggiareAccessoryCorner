@@ -15,10 +15,35 @@ import { Check } from "@mui/icons-material";
 import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty";
 import { COLORS } from "constants/contents/color";
 import OrderModal from "../OrderModal/OrderModal";
+import { getOrderProduct } from "services/order";
 
 const OrderList = () => {
   const [orderModal, setOrderModal] = React.useState<boolean>(false);
   const [orderId, setOrderId] = React.useState<null>();
+
+
+  const [orders, setOrders] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const ordersList:any = await getOrderProduct();
+        setOrders(ordersList);
+      } catch (error) {
+        console.error("Error fetching orders: ", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOrders();
+  }, []);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <Container maxWidth="lg">
       <Typography sx={{ pt: 15, color: "black", pb: 3, fontWeight: 900 }}>
@@ -37,7 +62,7 @@ const OrderList = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {PRODUCT_DETAILS.map((products: any, i: any) => (
+              {orders?.map((products: any, i: any) => (
                 <TableRow
                   key={i}
                   hover
@@ -46,8 +71,8 @@ const OrderList = () => {
                     setOrderId(products?.id);
                   }}
                 >
-                  <TableCell align="left">{products?.title}</TableCell>
-                  <TableCell align="left">{products?.date}</TableCell>
+                  <TableCell align="left">{products?.id}</TableCell>
+                  <TableCell align="left">{products?.sss}</TableCell>
                   <TableCell align="left">{products?.price} $</TableCell>
                   <TableCell align="left">{products?.stock}</TableCell>
                   <TableCell

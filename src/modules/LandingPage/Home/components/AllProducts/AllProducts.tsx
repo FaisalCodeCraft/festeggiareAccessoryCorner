@@ -5,7 +5,9 @@ import {
   Grid,
   LinearProgress,
   MenuItem,
+  Pagination,
   Rating,
+  Stack,
   TextField,
   Typography,
 } from "@mui/material";
@@ -45,7 +47,7 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
   const fecthProducts = async () => {
     let url = `https://dummyjson.com/products?limit=${skipPro}&skip=${skip}`;
     if (productCategory && productCategory !== "All Options") {
-      url = `https://dummyjson.com/products/category/${productCategory}?limit=${skipPro}&skip=${skip}`;
+      url = `https://dummyjson.com/products/category/${productCategory}?limit=${skip}&skip=${skip}`;
     }
     const res = await fetch(url);
     const data = await res.json();
@@ -90,6 +92,8 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
     getAllProducts();
   }, []);
 
+
+
   if (isLoading) {
     return (
       <Box sx={{ width: "40%", m: "auto", mt: 4 }}>
@@ -130,6 +134,7 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
           <TextField
             select
             defaultValue={"All Options"}
+            size="small"
             onChange={(e) => setProductCategory(e.target.value)}
           >
             <MenuItem value={"All Options"}>All Options</MenuItem>
@@ -271,7 +276,7 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
           >
             Prev
           </Button>
-          {/* <Stack>
+          <Stack>
             <Pagination
               sx={{
                 ".MuiPaginationItem-root": {
@@ -301,7 +306,7 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
               hideNextButton
               hidePrevButton
             />
-          </Stack> */}
+          </Stack>
           <Button
             sx={btnStyle}
             onClick={() => setSkip((prev) => prev + (skipPro ? skipPro : 4))}
