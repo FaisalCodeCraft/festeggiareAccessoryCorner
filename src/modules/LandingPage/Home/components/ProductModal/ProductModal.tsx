@@ -65,7 +65,7 @@ const ProductModal = (props:any) => {
                                 width={"100%"}
                                 height={"100%"}
                                 style={{ objectFit: "cover" }}
-                                src={productData?.poster || productData?.thumbnail}
+                                src={productData?.poster || productData?.productImage}
                                 alt={productData.name}
                             />
                         </Box>

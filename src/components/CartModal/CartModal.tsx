@@ -21,6 +21,7 @@ import { useNavigate } from "react-router-dom";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "config/firebase";
 import { ROUTES } from "constants/contents/routes";
+import PhoneNoDialog from "components/PhoneNoDialog/PhoneNoDialog";
 
 interface CartItem {
   id: number;
@@ -101,8 +102,8 @@ const style = {
 const CartModal: React.FC<CartModalProps> = ({ color }) => {
   const [incDec, setIncDec] = React.useState<number>(0);
   const [open, setOpen] = React.useState<boolean>(false);
-  const [isContactNo, setIsContactNo] = React.useState<string>("");
-  const [phoneNo, setPhoneNo] = React.useState<string>();
+  const [isContactNo, setIsContactNo] = React.useState<string>();
+  const [phoneNo, setPhoneNo] = React.useState<number>();
   const [messages, setMessages] = React.useState<string[]>([]);
   const [loading, setLoading] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -150,8 +151,9 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
         // check user phone Number
         if (snapShotUser?.data()?.phoneNumber === null) {
           setIsContactNo("NotExist");
+          console.log(phoneNo)
           await updateDoc(userDocRef, {
-            phoneNumber: phoneNo,
+            phoneNumber: phoneNo ,
           });
         } else {
           userData = snapShotUser?.data();
@@ -225,6 +227,13 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
       >
         <Fade in={open}>
           <Box sx={style}>
+            {isContactNo === "NotExist" && (
+              <PhoneNoDialog
+                setPhoneNo={setPhoneNo}
+                setIsContactNo={setIsContactNo}
+                isContactNo="NotExist"
+              />
+            )}
             <Box
               display={"flex"}
               justifyContent={"space-between"}
@@ -252,7 +261,7 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
                   style={removBtnStyle}
                   onClick={() => {
                     setInCart([]);
-                    setLoading(true)
+                    setLoading(true);
                   }}
                 >
                   Remove All
@@ -279,7 +288,7 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
                     width={"100%"}
                     height={"100%"}
                     style={{ objectFit: "cover" }}
-                    src={item.poster || item.thumbnail}
+                    src={item.poster || item.productImage}
                     alt="poster"
                   />
                 </Box>

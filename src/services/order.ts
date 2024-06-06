@@ -41,11 +41,11 @@ export const placeOrder = (inCart: any, totalPrice: number, user: any) => {
 
       // order will be added here
       Promise.all(updateQuantityOfProduct).then(async () => {
-        if (inCart.length) {
+        if (inCart.length && !user.role) {
           const newOrder = await addDoc(orderCollectionRef, {
             totalPrice: `${totalPrice} $`,
             userId: user?.userId,
-            userPhoneNo: user?.phoneNumber * 1,
+            userPhoneNo: user?.phoneNumber ,
             placedAt: currentDateAndTime,
             productsDetails: inCart,
           });
