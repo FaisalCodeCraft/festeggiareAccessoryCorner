@@ -87,11 +87,11 @@ export const getOrderProduct = async (user: any) => {
             return e;
           }
         });
+
         const ordersOfuser = allOrders.filter((e) => e);
         resolve(ordersOfuser)
-      });
-           
 
+        
       return orderProduct;
     } catch (error) {
       reject(error);
