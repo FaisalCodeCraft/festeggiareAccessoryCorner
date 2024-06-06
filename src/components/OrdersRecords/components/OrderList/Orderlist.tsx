@@ -40,7 +40,7 @@ const OrderList = () => {
     };
 
     fetchOrders();
-  }, []);
+  }, [orders,setOrders]);
 
   if (loading) {
     return <p>Loading...</p>;

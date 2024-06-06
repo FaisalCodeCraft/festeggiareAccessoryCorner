@@ -53,7 +53,7 @@ export const placeOrder = (inCart: any, totalPrice: number, user: any) => {
           const newOrder = await addDoc(orderCollectionRef, {
             totalPrice: `${totalPrice} $`,
             userId: user?.userId,
-            userPhoneNo: user?.phoneNumber ,
+            userPhoneNo: user?.phoneNumber,
             placedAt: currentDateAndTime,
             productsDetails: inCart,
           });
@@ -80,23 +80,18 @@ export const getOrderProduct = async (user: any) => {
         snapshot.docs.map((doc) => {
           orders.push({ ...doc.data() });
         });
-        const t = orders.map((e, i) => {
+        const allOrders = orders.map((e, i) => {
           if (e.userId === user?.uid) {
             return e;
           } else if (user?.role) {
             return e;
-          } 
+          }
         });
-        console.log(t, "<M>>>>>>>>>>>");
+        const ordersOfuser = allOrders.filter((e) => e);
+        resolve(ordersOfuser)
       });
+           
 
-      const q = query(collection(db, "orders"), where("capital", "==", true));
-
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data());
-      });
       return orderProduct;
     } catch (error) {
       reject(error);
