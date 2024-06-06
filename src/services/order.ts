@@ -16,14 +16,19 @@ const currentDateAndTime =
   ":" +
   date.getSeconds();
 
+  // place order 
+
 export const placeOrder = (inCart: any, totalPrice: number, user: any) => {
 
   return new Promise(async (resolve, reject) => {
     try {
+
+      // check quantity 
       const updateQuantityOfProduct = inCart?.map(
         async (item: any, i: number) => {
           const productDocRef = doc(db, "products", item?.productId);
           const snapProduct = await getDoc(productDocRef);
+          // update quantity in document
           if (snapProduct.data()?.quantity >= item?.quantity) {
             await updateDoc(productDocRef, {
               quantity: snapProduct.data()?.quantity - inCart[i].quantity,
@@ -33,6 +38,8 @@ export const placeOrder = (inCart: any, totalPrice: number, user: any) => {
           }
         }
       );
+
+      // order will be added here
       Promise.all(updateQuantityOfProduct).then(async () => {
         if (inCart.length) {
           const newOrder = await addDoc(orderCollectionRef, {

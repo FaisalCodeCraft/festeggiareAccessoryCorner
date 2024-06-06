@@ -31,6 +31,7 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
       try {
         setIsLoading(true);
         if (user) {
+          // check user role
           const adminDocRef = await doc(db, "admins", user?.uid);
           const snapShotAdmin = await getDoc(adminDocRef);
           if (snapShotAdmin.exists()) {
@@ -39,7 +40,6 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
      
           } else {
             setCurrentUser(user as any);
-            console.log(user)
             setIsLoggedIn(true)
           }
         } else {

@@ -103,11 +103,10 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
   const { mode, inCart, setInCart } = React.useContext(ThemeContext);
   let { user } = React.useContext(AuthContext);
   const [incDec, setIncDec] = React.useState<number>(0);
-  console.log(incDec)
   const [open, setOpen] = React.useState<boolean>(false);
   const [isContactNo, setIsContactNo] = React.useState<string>("");
   const [phoneNo, setPhoneNo] = React.useState<string>();
-  const [message, setMessage] = React.useState<string[]>([]);
+  const [messages, setMessages] = React.useState<string[]>([]);
   const [loading, setLoading] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -115,12 +114,14 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
   let userData: any;
   const navigate = useNavigate();
 
+  // remove one element from cart
   const handleRemove = (item: CartItem) => {
     const removeItemFromCArt = inCart.filter((i: any) => i.id !== item.id);
     setInCart(removeItemFromCArt);
     setLoading(false);
   };
 
+  // 
   const handleInc = (i: number) => {
     setIncDec((prev) => prev + 1);
     inCart[i].quantity = (inCart[i]?.quantity || 0) + 1;
@@ -142,9 +143,11 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
 
   const handleContactNo = async () => {
     try {
+      // check user
       if (user) {
         const userDocRef = await doc(db, "users", user?.uid);
         const snapShotUser = await getDoc(userDocRef);
+        // check user phone Number
         if (snapShotUser?.data()?.phoneNumber === null) {
           setIsContactNo("NotExist");
           await updateDoc(userDocRef, {
@@ -169,7 +172,7 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
     await handleContactNo();
     // Check if Cart have any product
     if (inCart?.length < 0) {
-      setMessage(["No Product Selected"]);
+      setMessages(["No Product Selected"]);
       return;
     }
 
@@ -180,13 +183,12 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
       if (snapProduct.data()?.quantity >= item?.quantity) {
         return snapProduct.data();
       } else {
-        const allMessages = message;
-        allMessages.push(
+        messages.push(
           `${snapProduct.data()?.title} are available only ${
             snapProduct.data()?.quantity
           } quantity`
         );
-        setMessage(allMessages);
+        setMessages(messages);
         setLoading(true);
         return;
       }
@@ -381,8 +383,8 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
               </Button>
             </Box>
             {inCart.length > 0 &&
-              message.length > 0 &&
-              message?.map((e, i) => (
+              messages.length > 0 &&
+              messages?.map((e, i) => (
                 <Typography key={i} color={"red"}>
                   {e}
                 </Typography>
