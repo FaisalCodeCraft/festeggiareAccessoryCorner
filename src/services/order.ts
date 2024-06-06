@@ -73,7 +73,14 @@ export const getOrderProduct = () => {
         snapshot.docs.map((doc) => {
           orders.push({...doc.data(),id: doc.id,  });
         });
-        resolve(orders);
+        const t = orders.map((e, i) => {
+          if (e.userId === user?.uid) {
+            return e;
+          } else if (user?.role) {
+            return e;
+          } 
+        });
+        console.log(t, "<M>>>>>>>>>>>");
       });
       return orderProduct;
     } catch (error) {
