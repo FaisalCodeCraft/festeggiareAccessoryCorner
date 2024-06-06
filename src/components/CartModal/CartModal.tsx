@@ -358,7 +358,7 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
                     color: "white",
                   },
                 }}
-                onClick={() => placeOrder(inCart,totalPrice,user)}
+                onClick={handlePurchase}
               >
                 Purchase
               </Button>

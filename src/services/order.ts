@@ -71,10 +71,8 @@ export const getOrderProduct = () => {
       const orderProduct = onSnapshot(orderCollectionRef, (snapshot) => {
         const orders: any[] = [];
         snapshot.docs.map((doc) => {
-          console.log(doc.data(),'}{}{}{}{}{}{')
           orders.push({...doc.data(),id: doc.id,  });
         });
-        console.log(orders,'||||||||||||||||||')
         resolve(orders);
       });
       return orderProduct;
