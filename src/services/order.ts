@@ -1,5 +1,15 @@
 import { db } from "config/firebase";
-import { addDoc, collection, doc, getDoc, onSnapshot, updateDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  onSnapshot,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 
 const orderCollectionRef = collection(db, "orders");
 const date = new Date();
@@ -16,14 +26,12 @@ const currentDateAndTime =
   ":" +
   date.getSeconds();
 
-  // place order 
+// place order
 
 export const placeOrder = (inCart: any, totalPrice: number, user: any) => {
-
   return new Promise(async (resolve, reject) => {
     try {
-
-      // check quantity 
+      // check quantity
       const updateQuantityOfProduct = inCart?.map(
         async (item: any, i: number) => {
           const productDocRef = doc(db, "products", item?.productId);
@@ -64,16 +72,30 @@ export const placeOrder = (inCart: any, totalPrice: number, user: any) => {
   });
 };
 
-
-export const getOrderProduct = () => {
-  return new Promise<any[]>((resolve, reject) => {
+export const getOrderProduct = async (user: any) => {
+  return new Promise<any[]>(async (resolve, reject) => {
     try {
       const orderProduct = onSnapshot(orderCollectionRef, (snapshot) => {
         const orders: any[] = [];
         snapshot.docs.map((doc) => {
-          orders.push({...doc.data(),id: doc.id,  });
+          orders.push({ ...doc.data() });
         });
-        resolve(orders);
+        const t = orders.map((e, i) => {
+          if (e.userId === user?.uid) {
+            return e;
+          } else if (user?.role) {
+            return e;
+          } 
+        });
+        console.log(t, "<M>>>>>>>>>>>");
+      });
+
+      const q = query(collection(db, "orders"), where("capital", "==", true));
+
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
       });
       return orderProduct;
     } catch (error) {
