@@ -15,6 +15,7 @@ export const ROUTES = {
         MANAGE_ADMIN: "/dashboard",
         MANAGE_PRODUCTS: '/manage-Products',
         PRODUCTS_RECORD: '/records',
-        ANALYTICS :'/analytics'
+        ANALYTICS :'/analytics',
+        ORDER_RECORDS : '/order-records'
     },
 }

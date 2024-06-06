@@ -6,6 +6,7 @@ import ManageDashboard from "modules/Dashboard/Pages/ManageDashboard/MangeDashbo
 import ManageProducts from "modules/Dashboard/Pages/ManageProducts/ManageProducts";
 import ProductsRecord from "modules/Dashboard/Pages/ProductsRecord/ProductsRecord";
 import Analytics from "modules/Dashboard/Pages/Analytics/Analytics";
+import OrderPage from "modules/Dashboard/Pages/Orderpage/OrderPage";
 
 
 
@@ -26,6 +27,10 @@ const DashboardRoutes = () => {
           <Route
             path={ROUTES.DASHBOARD.PRODUCTS_RECORD}
             element={<ProductsRecord />}
+          />
+          <Route
+            path={ROUTES.DASHBOARD.ORDER_RECORDS}
+            element={<OrderPage />}
           />
           <Route path={ROUTES.DASHBOARD.ANALYTICS} element={<Analytics />} />
         </Route>

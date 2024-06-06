@@ -60,6 +60,7 @@ export const SideBar = (props: any) => {
   const isActiveAdminURL = pathname === ROUTES.DASHBOARD.MANAGE_ADMIN;
   const isActiveProductsURL = pathname === ROUTES.DASHBOARD.MANAGE_PRODUCTS;
   const isActiveProRecordsURL = pathname === ROUTES.DASHBOARD.PRODUCTS_RECORD;
+  const isActiveOrderRecordsURL = pathname === ROUTES.DASHBOARD.ORDER_RECORDS;
   const isActiveAnalyticsURL = pathname === ROUTES.DASHBOARD.ANALYTICS;
   const useAuthContext = useContext(AuthContext);
   const { signout } = useAuthContext;
@@ -203,6 +204,43 @@ export const SideBar = (props: any) => {
               />
             </ListItemIcon>
             <ListItemText>Products Record</ListItemText>
+          </ListItemButton>
+        </ListItem>
+        <ListItem
+          disablePadding
+          sx={{
+            borderRadius: "15px",
+            width: "90%",
+            mx: "auto",
+            mt: 0.5,
+            "&:hover": {
+              bgcolor: COLORS.pink.hotPink,
+              borderRadius: "15px",
+            },
+          }}
+        >
+          <ListItemButton
+            disableGutters
+            sx={{
+              px: 1,
+              borderRadius: "15px",
+
+              "&.Mui-selected": {
+                backgroundColor: COLORS.pink.hotPink,
+              },
+            }}
+            selected={isActiveOrderRecordsURL}
+            onClick={() => navigate(ROUTES.DASHBOARD.ORDER_RECORDS)}
+          >
+            <ListItemIcon>
+              <ReceiptLongOutlined
+                sx={{
+                  color: "white",
+                }}
+                fontSize="small"
+              />
+            </ListItemIcon>
+            <ListItemText>Orders Records</ListItemText>
           </ListItemButton>
         </ListItem>
         <ListItem

@@ -13,17 +13,24 @@ import {
 } from "@mui/material";
 import { COLORS } from "constants/contents/color";
 import { PRODUCT_DETAILS } from "constants/contents/data";
-import React from "react";
+import React, { useEffect } from "react";
+import { getProducts } from "services/products";
 
 const ProductTable = (props:any) => {
   const {tableData} = props
   const UserShowOnPage = 5;
   const [user, setUser] = React.useState(1);
+  const [product,setProduct] = React.useState([])
   const handleChange = (e:any, data:any) => {
     setUser(data);
   };
   const members = user * UserShowOnPage;
   const remainingMembers = members - UserShowOnPage;
+
+
+  useEffect(()=>{
+    getProducts(setProduct)
+  },[])
 
 
   if (tableData.length) {
@@ -36,12 +43,12 @@ const ProductTable = (props:any) => {
                 <TableRow>
                   <TableCell align="left">ITEM NAMES</TableCell>
                   <TableCell align="left">Price</TableCell>
-                  <TableCell align="left">Stock</TableCell>
+                  <TableCell align="left">Quantity</TableCell>
                   <TableCell align="left">Category</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {tableData?.slice(remainingMembers, members).map(
+                {product?.slice(remainingMembers, members).map(
                   (products:any, i:any) => (
                     <TableRow key={i} hover>
                       <TableCell
@@ -49,7 +56,7 @@ const ProductTable = (props:any) => {
                         sx={{ display: "flex", gap: 1, alignItems: "center" }}
                       >
                         <img
-                          src={products.poster}
+                          src={products.productImage}
                           alt="ProductImg."
                           style={{
                             width: "50px",
@@ -59,8 +66,8 @@ const ProductTable = (props:any) => {
                         />
                         {products.title}
                       </TableCell>
-                      <TableCell align="left">{products.price}</TableCell>
-                      <TableCell align="left">{products.stock}</TableCell>
+                      <TableCell align="left">{products.price}$</TableCell>
+                      <TableCell align="left">{products.quantity}</TableCell>
                       <TableCell align="left">{products.category}</TableCell>
                     </TableRow>
                   )
