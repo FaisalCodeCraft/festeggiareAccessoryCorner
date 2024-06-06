@@ -21,7 +21,7 @@ const OrderList = () => {
   const [orderModal, setOrderModal] = React.useState<boolean>(false);
   const [orderId, setOrderId] = React.useState<null>();
 
-  const userId =useContext(AuthContext)
+  const {user} = useContext(AuthContext)
   
 
   const [orders, setOrders] = React.useState([]);
@@ -30,7 +30,7 @@ const OrderList = () => {
   React.useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const ordersList:any = await getOrderProduct();
+        const ordersList:any = await getOrderProduct(user);
         setOrders(ordersList);
       } catch (error) {
         console.error("Error fetching orders: ", error);

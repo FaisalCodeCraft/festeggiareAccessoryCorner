@@ -52,11 +52,7 @@ const LoginForm = () => {
   useEffect(() => {
     if (context?.isLoggedIn && context.user.role) {
       navigate(ROUTES.DASHBOARD.MANAGE_ADMIN);
-    } else if (context?.isLoggedIn && !context.user.role) {
-      navigate(LANDING_ROUTES.HOME_PAGE);
-    } else {
-      console.log("you are not logged in");
-    }
+    } 
   }, [context?.isLoggedIn, context.user, navigate]);
 
   return (
