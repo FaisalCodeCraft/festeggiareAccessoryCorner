@@ -4,11 +4,8 @@ import {
   collection,
   doc,
   getDoc,
-  getDocs,
   onSnapshot,
-  query,
   updateDoc,
-  where,
 } from "firebase/firestore";
 
 const orderCollectionRef = collection(db, "orders");
@@ -49,7 +46,7 @@ export const placeOrder = (inCart: any, totalPrice: number, user: any) => {
 
       // order will be added here
       Promise.all(updateQuantityOfProduct).then(async () => {
-        if (inCart.length && !user.role) {
+        if (inCart.length && !user?.role) {
           const newOrder = await addDoc(orderCollectionRef, {
             totalPrice: `${totalPrice} $`,
             userId: user?.userId,
@@ -78,9 +75,9 @@ export const getOrderProduct = async (user: any) => {
       const orderProduct = onSnapshot(orderCollectionRef, (snapshot) => {
         const orders: any[] = [];
         snapshot.docs.map((doc) => {
-          orders.push({ ...doc.data() });
+        return orders.push({ ...doc.data() })
         });
-        const allOrders = orders.map((e, i) => {
+        const allOrders = orders.map((e) => {
           if (e.userId === user?.uid) {
             return e;
           } else if (user?.role) {
@@ -90,7 +87,7 @@ export const getOrderProduct = async (user: any) => {
 
         const ordersOfuser = allOrders.filter((e) => e);
         resolve(ordersOfuser)
-
+      })
         
       return orderProduct;
     } catch (error) {
@@ -98,3 +95,5 @@ export const getOrderProduct = async (user: any) => {
     }
   });
 };
+
+

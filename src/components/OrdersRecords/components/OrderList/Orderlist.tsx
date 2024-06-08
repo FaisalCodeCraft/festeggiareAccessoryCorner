@@ -21,8 +21,7 @@ const OrderList = () => {
   const [orderModal, setOrderModal] = React.useState<boolean>(false);
   const [orderId, setOrderId] = React.useState<null>();
 
-  const {user} = useContext(AuthContext)
-  
+  const { user } = useContext(AuthContext);
 
   const [orders, setOrders] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
@@ -30,7 +29,7 @@ const OrderList = () => {
   React.useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const ordersList:any = await getOrderProduct(user);
+        const ordersList: any = await getOrderProduct(user);
         setOrders(ordersList);
       } catch (error) {
         console.error("Error fetching orders: ", error);
@@ -40,7 +39,7 @@ const OrderList = () => {
     };
 
     fetchOrders();
-  }, [orders,setOrders]);
+  }, [orders,setOrders,user]);
 
   if (loading) {
     return <p>Loading...</p>;
@@ -59,52 +58,54 @@ const OrderList = () => {
                 <TableCell align="left">ITEM NAMES</TableCell>
                 <TableCell align="left">Date</TableCell>
                 <TableCell align="left">Price</TableCell>
-                <TableCell align="left">Stock</TableCell>
+                <TableCell align="left">Quantity</TableCell>
                 <TableCell align="left">Status</TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
-              {orders?.map((products: any, i: any) => (
-                <TableRow
-                  key={i}
-                  hover
-                  onClick={() => {
-                    setOrderModal(!orderModal);
-                    setOrderId(products?.id);
-                  }}
-                >
-                  <TableCell align="left">{products?.id}</TableCell>
-                  <TableCell align="left">{products?.sss}</TableCell>
-                  <TableCell align="left">{products?.price} $</TableCell>
-                  <TableCell align="left">{products?.stock}</TableCell>
-                  <TableCell
-                    align="left"
-                    sx={{
-                      color:
-                        products.status === "complete"
-                          ? "green"
-                          : COLORS.gray.light,
-                      display: "flex",
-                      alignItems: "center",
+            {orders?.map((products: any, i: any) => (
+              <TableBody>
+                {products?.productsDetails.map((unit: any) => (
+                  <TableRow
+                    key={i}
+                    hover
+                    onClick={() => {
+                      setOrderModal(!orderModal);
+                      setOrderId(unit?.productId);
                     }}
                   >
-                    {products?.status === "complete" ? (
-                      <Check />
-                    ) : (
-                      <HourglassEmptyIcon />
-                    )}{" "}
-                    {products?.status}
-                  </TableCell>
-                  {orderModal && orderId === products?.id && (
-                    <OrderModal
-                      orderModal={orderModal}
-                      orderData={products}
-                      onClose={() => setOrderModal(false)}
-                    />
-                  )}
-                </TableRow>
-              ))}
-            </TableBody>
+                    <TableCell align="left">{unit?.title}</TableCell>
+                    <TableCell align="left">{products?.placedAt}</TableCell>
+                    <TableCell align="left">{unit?.price} $</TableCell>
+                    <TableCell align="left">{unit?.quantity}</TableCell>
+                    <TableCell
+                      align="left"
+                      sx={{
+                        color:
+                          unit?.status === "complete"
+                            ? "green"
+                            : COLORS.gray.light,
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      {unit?.status === "complete" ? (
+                        <Check />
+                      ) : (
+                        <HourglassEmptyIcon />
+                      )}{" "}
+                      {products?.status} status
+                    </TableCell>
+                    {orderModal && orderId === unit?.productId && (
+                      <OrderModal
+                        orderModal={orderModal}
+                        orderData={products?.productsDetails}
+                        onClose={() => setOrderModal(false)}
+                      />
+                    )}
+                  </TableRow>
+                ))}
+              </TableBody>
+            ))}
           </Table>
         </TableContainer>
       </Paper>
