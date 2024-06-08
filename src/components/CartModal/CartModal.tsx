@@ -108,7 +108,7 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
   const [loading, setLoading] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+ console.log(incDec)
   let userData: any;
   const navigate = useNavigate();
 
@@ -151,13 +151,14 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
         // check user phone Number
         if (snapShotUser?.data()?.phoneNumber === null) {
           setIsContactNo("NotExist");
-          console.log(phoneNo)
-          await updateDoc(userDocRef, {
-            phoneNumber: phoneNo ,
-          });
+          if (phoneNo) {
+            await updateDoc(userDocRef, {
+              phoneNumber: phoneNo ,
+            });
+          }
+         setIsContactNo('')
         } else {
           userData = snapShotUser?.data();
-          setIsContactNo("");
         }
       }
     } catch (error) {

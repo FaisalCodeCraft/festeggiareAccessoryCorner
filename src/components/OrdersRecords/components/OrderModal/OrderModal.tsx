@@ -29,16 +29,18 @@ const OrderModal = (props: any) => {
     >
       <Fade in={orderModal}>
         <Box sx={style}>
-          <Typography
-            sx={{
-              fontWeight: "bold",
-              p: 1,
-              color: COLORS.pink.hotPink,
-              fontSize: { md: "2em" },
-            }}
-          >
-            {orderData?.title}{" "}
-          </Typography>
+         {orderData.map((name:any)=>(
+           <Typography
+           sx={{
+             fontWeight: "bold",
+             p: 1,
+             color: COLORS.pink.hotPink,
+             fontSize: { md: "2em" },
+           }}
+         >
+           {name?.title}
+         </Typography>
+         ))}
 
           <Table>
             <TableHead>
@@ -49,49 +51,50 @@ const OrderModal = (props: any) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              <TableRow>
-                <TableCell align="center">
-                <Box
-                    position={"relative"}
-                    height={"60px"}
-                    width={"60px"}
-                    mr={2}
-                    sx={{
-                      backgroundColor: "rgb(248, 247, 243)",
-                      borderRadius: "50%",
-                      display:'flex',
-                      gap:2,
-                      alignItems:'center'
-                    }}
-                  >
-                    <img
-                      width={"100%"}
-                      height={"100%"}
-                      style={{ objectFit: "cover", borderRadius: "50%" }}
-                      src={orderData?.poster}
-                      alt="poster"
-                    />
-                    <Typography
-                      fontWeight={"light"}
-                      fontSize={"large"}
-                      width={"250px"}
+              {orderData.map((item: any) => (
+                <TableRow>
+                  <TableCell align="left">
+                    <Box
+                      position={"relative"}
+                      height={"80px"}
+                      width={"80px"}
+                      mr={2}
+                      sx={{
+                        backgroundColor: "rgb(248, 247, 243)",
+                        borderRadius: "50%",
+                        display: "flex",
+                        gap: 3,
+                        alignItems: "center",
+                      }}
                     >
-                      {orderData?.title}
-                    </Typography>
-                  </Box>
-                </TableCell>
-                <TableCell align="center">
-                <Typography fontWeight={400} fontSize={"large"}>
-                        {orderData?.stock}
+                      <img
+                        width={"100%"}
+                        height={"100%"}
+                        style={{ objectFit: "cover", borderRadius: "50%" }}
+                        src={item?.productImage}
+                        alt="productImg"
+                      />
+                      <Typography
+                        fontWeight={"light"}
+                        fontSize={"large"}
+                        width={"250px"}
+                      >
+                        {item?.title}
                       </Typography>
-                </TableCell>
-                <TableCell align="center">
-                <Typography fontWeight={"bold"} color={COLORS.gray.light}>
-                      {/* ${item?.price * item?.quantity} */}
-                      {orderData?.price}
+                    </Box>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Typography fontWeight={400} fontSize={"large"}>
+                      {item?.price} $
                     </Typography>
-                </TableCell>
-              </TableRow>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Typography fontWeight={"bold"} color={COLORS.gray.light}>
+                      {item?.quantity}
+                    </Typography>
+                  </TableCell>
+                </TableRow>
+              ))}
             </TableBody>
           </Table>
         </Box>
@@ -107,11 +110,12 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "50%",
+  width: "70%",
   height: "80%",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
+  borderRadius:'20px',
   p: 4,
-  overflowY: "scroll",
+  // overflowY: "scroll",
 };
