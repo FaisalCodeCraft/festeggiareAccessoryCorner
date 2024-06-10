@@ -7,6 +7,7 @@ import ManageProducts from "modules/Dashboard/Pages/ManageProducts/ManageProduct
 import ProductsRecord from "modules/Dashboard/Pages/ProductsRecord/ProductsRecord";
 import Analytics from "modules/Dashboard/Pages/Analytics/Analytics";
 import OrderPage from "modules/Dashboard/Pages/Orderpage/OrderPage";
+import FeedBack from "modules/Dashboard/Pages/UserFeedback/FeedBack";
 
 
 
@@ -32,7 +33,12 @@ const DashboardRoutes = () => {
             path={ROUTES.DASHBOARD.ORDER_RECORDS}
             element={<OrderPage />}
           />
-          <Route path={ROUTES.DASHBOARD.ANALYTICS} element={<Analytics />} />
+          <Route
+           path={ROUTES.DASHBOARD.ANALYTICS}
+            element={<Analytics />} />
+          <Route
+           path={ROUTES.DASHBOARD.USER_FEEDBACK}
+            element={<FeedBack />} />
         </Route>
       </Route>
       

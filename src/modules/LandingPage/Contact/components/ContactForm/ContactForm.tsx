@@ -10,22 +10,21 @@ import { addUserMessage } from "services/userMessage";
 import { LoadingButton } from "@mui/lab";
 
 const ContactForm = () => {
-  const { isLoggedIn,user } = React.useContext(AuthContext);
+  const { isLoggedIn, user } = React.useContext(AuthContext);
   const navigate = useNavigate();
-  const { register, handleSubmit,} = useForm();
+  const { register, handleSubmit } = useForm();
   const [isLoading, setIsLoading] = React.useState(false);
 
-  
   const handleContact = (message: any) => {
-    setIsLoading(true)
-    addUserMessage(message,user)
-    setTimeout(()=>{
-      setIsLoading(false)
-    },3000)
+    setIsLoading(true);
+    addUserMessage(message, user);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
   };
 
   return (
-    <Box  
+    <Box
       sx={{
         display: "flex",
         justifyContent: "center",
@@ -36,15 +35,11 @@ const ContactForm = () => {
         color: "white",
       }}
     >
-      <Box component={'form'} sx={{ width: {md:'50%',sm:'70%',xs:'90%'} }} onSubmit={handleSubmit(handleContact)}>
-        <TextField
-          type="email"
-          placeholder="Email"
-          fullWidth
-          sx={{ bgcolor: "white", mb: 1, borderRadius: 1 }}
-          {...register("email")}
-        />
-        <br />
+      <Box
+        component={"form"}
+        sx={{ width: { md: "50%", sm: "70%", xs: "90%" } }}
+        onSubmit={handleSubmit(handleContact)}
+      >
         <TextField
           multiline
           rows={5}
@@ -55,20 +50,20 @@ const ContactForm = () => {
         />
         {isLoggedIn ? (
           <LoadingButton
-          loading={!!isLoading}
-          startIcon={<Telegram />}
-          disabled={!!isLoading}
-          type="submit"
-          sx={{
-                textAlign: "start",
-                px: 5,
-                bgcolor: COLORS.pink.hotPink,
-                color:'white',
-                "&:hover": { bgcolor: "pink", color: "black" },
-              }}
-        >
-          Submit
-        </LoadingButton>
+            loading={!!isLoading}
+            startIcon={<Telegram />}
+            disabled={!!isLoading}
+            type="submit"
+            sx={{
+              textAlign: "start",
+              px: 5,
+              bgcolor: COLORS.pink.hotPink,
+              color: "white",
+              "&:hover": { bgcolor: "pink", color: "black" },
+            }}
+          >
+            Submit
+          </LoadingButton>
         ) : (
           <Button
             variant="contained"
