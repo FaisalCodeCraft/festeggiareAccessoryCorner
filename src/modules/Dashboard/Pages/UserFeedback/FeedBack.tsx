@@ -6,7 +6,6 @@ const FeedBack = () => {
   return (
     <DashboardLayout title='Feedback'>
         <MessageTable/>
-         <h1>Hellow Feedback Page</h1>
     </DashboardLayout>
   )
 }
