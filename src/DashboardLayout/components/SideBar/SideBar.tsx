@@ -62,6 +62,7 @@ export const SideBar = (props: any) => {
   const isActiveProRecordsURL = pathname === ROUTES.DASHBOARD.PRODUCTS_RECORD;
   const isActiveOrderRecordsURL = pathname === ROUTES.DASHBOARD.ORDER_RECORDS;
   const isActiveAnalyticsURL = pathname === ROUTES.DASHBOARD.ANALYTICS;
+  const isActiveFeedBackURL = pathname === ROUTES.DASHBOARD.USER_FEEDBACK;
   const useAuthContext = useContext(AuthContext);
   const { signout } = useAuthContext;
 
@@ -278,6 +279,43 @@ export const SideBar = (props: any) => {
               />
             </ListItemIcon>
             <ListItemText>Analytics</ListItemText>
+          </ListItemButton>
+        </ListItem>
+        <ListItem
+          disablePadding
+          sx={{
+            borderRadius: "15px",
+            width: "90%",
+            mx: "auto",
+            mt: 0.5,
+            "&:hover": {
+              bgcolor: COLORS.pink.hotPink,
+              borderRadius: "15px",
+            },
+          }}
+        >
+          <ListItemButton
+            disableGutters
+            sx={{
+              px: 1,
+              borderRadius: "15px",
+
+              "&.Mui-selected": {
+                backgroundColor: COLORS.pink.hotPink,
+              },
+            }}
+            selected={isActiveFeedBackURL}
+            onClick={() => navigate(ROUTES.DASHBOARD.USER_FEEDBACK)}
+          >
+            <ListItemIcon>
+              <EqualizerOutlined
+                sx={{
+                  color: "white",
+                }}
+                fontSize="small"
+              />
+            </ListItemIcon>
+            <ListItemText>FeedBack</ListItemText>
           </ListItemButton>
         </ListItem>
 

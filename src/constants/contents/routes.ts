@@ -17,6 +17,7 @@ export const ROUTES = {
         MANAGE_PRODUCTS: '/manage-Products',
         PRODUCTS_RECORD: '/records',
         ANALYTICS :'/analytics',
-        ORDER_RECORDS : '/order-records'
+        ORDER_RECORDS : '/order-records',
+        USER_FEEDBACK : '/user-feedback'
     },
 }
