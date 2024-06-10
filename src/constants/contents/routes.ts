@@ -4,6 +4,7 @@ export const LANDING_ROUTES = {
        ABOUT_PAGE : '/about',
        PRODUCTS_PAGE : '/products',
        ORDER_PAGE : '/orders',
+       CONTACT_PAGE: '/contact'
 }
 
 

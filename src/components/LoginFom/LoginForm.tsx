@@ -8,7 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Alert, Button, Snackbar } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { LANDING_ROUTES, ROUTES } from "constants/contents/routes";
+import {ROUTES } from "constants/contents/routes";
 import { signInFormSchema } from "validation";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "config/firebase";

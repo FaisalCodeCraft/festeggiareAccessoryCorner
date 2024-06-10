@@ -52,7 +52,7 @@ const Navbar = () => {
       <List>
         <ListItem>
           <NavLink
-            to="/home"
+            to={LANDING_ROUTES.HOME_PAGE}
             style={({ isActive }: any) => {
               return isActive
                 ? { color: COLORS.pink.hotPink, textDecoration: "none" }
@@ -67,7 +67,7 @@ const Navbar = () => {
         </ListItem>
         <ListItem>
           <NavLink
-            to="/about"
+            to={LANDING_ROUTES.ABOUT_PAGE}
             style={({ isActive }: any) => {
               return isActive
                 ? { color: COLORS.pink.hotPink, textDecoration: "none" }
@@ -82,7 +82,7 @@ const Navbar = () => {
         </ListItem>
         <ListItem>
           <NavLink
-            to="/products"
+            to={LANDING_ROUTES.PRODUCTS_PAGE}
             style={({ isActive }: any) => {
               return isActive
                 ? { color: COLORS.pink.hotPink, textDecoration: "none" }
@@ -97,7 +97,7 @@ const Navbar = () => {
         </ListItem>
         <ListItem>
           <NavLink
-            to={isLoggedIn ? "/myOrders" : "/"}
+            to={isLoggedIn ?LANDING_ROUTES.ORDER_PAGE : '/'}
             style={({ isActive }: any) => {
               return isActive
                 ? { color: COLORS.pink.hotPink, textDecoration: "none" }
@@ -112,22 +112,7 @@ const Navbar = () => {
         </ListItem>
         <ListItem>
           <NavLink
-            to="/services"
-            style={({ isActive }: any) => {
-              return isActive
-                ? { color: COLORS.pink.hotPink, textDecoration: "none" }
-                : {
-                    color: "black",
-                    textDecoration: "none",
-                  };
-            }}
-          >
-            Services
-          </NavLink>
-        </ListItem>
-        <ListItem>
-          <NavLink
-            to="/contact"
+            to={LANDING_ROUTES.CONTACT_PAGE}
             style={({ isActive }: any) => {
               return isActive
                 ? { color: COLORS.pink.hotPink, textDecoration: "none" }
@@ -276,9 +261,9 @@ const Navbar = () => {
                 Order
               </NavLink>
             </ListItem>
-            <ListItem>
+            {/* <ListItem>
               <NavLink
-                to="/DSD"
+                to={'/'}
                 style={({ isActive }: any) => {
                   return isActive
                     ? { color: COLORS.pink.hotPink, textDecoration: "none" }
@@ -290,10 +275,10 @@ const Navbar = () => {
               >
                 Services
               </NavLink>
-            </ListItem>
+            </ListItem> */}
             <ListItem>
               <NavLink
-                to="/ADS"
+                to={LANDING_ROUTES.CONTACT_PAGE}
                 style={({ isActive }: any) => {
                   return isActive
                     ? { color: COLORS.pink.hotPink, textDecoration: "none" }
