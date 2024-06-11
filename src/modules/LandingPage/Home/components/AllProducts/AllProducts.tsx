@@ -5,7 +5,9 @@ import {
   Grid,
   LinearProgress,
   MenuItem,
+  Pagination,
   Rating,
+  Stack,
   TextField,
   Typography,
 } from "@mui/material";
@@ -17,8 +19,9 @@ import { COLORS } from "constants/contents/color";
 import CommonButton from "components/Button/Button";
 import { ThemeContext } from "context/themeContext";
 import { getProducts } from "services/products";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { LANDING_ROUTES } from "constants/contents/routes";
+// import { useNavigate } from "react-router-dom";
 export interface AllProductsPropsType {
   skipPro?: number;
 }
@@ -26,15 +29,20 @@ export interface AllProductsPropsType {
 const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
   const { skipPro } = props;
   const navigate = useNavigate();
-  const { pathname } = useLocation();
-  const productPage = pathname === LANDING_ROUTES.PRODUCTS_PAGE;
-
   const { inCart, setInCart, handleKey } = React.useContext(ThemeContext);
   const [productId, setProductId] = React.useState<null>();
   const [product, setProduct] = React.useState<any>([]);
+  // const [page, setPage] = React.useState<number>(1);
   const [productModal, setProductModal] = React.useState<boolean>(false);
   const [skip, setSkip] = React.useState<number>(0);
   const [productCategory, setProductCategory] = React.useState<string>("");
+
+  // const navigate = useNavigate();
+
+  // const handleChange = (e: any, data: any) => {
+  //   setPage(data);
+  // };
+
 
   const fecthProducts = async () => {
     let url = `https://dummyjson.com/products?limit=${skipPro}&skip=${skip}`;
@@ -84,6 +92,8 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
     getAllProducts();
   }, []);
 
+
+
   if (isLoading) {
     return (
       <Box sx={{ width: "40%", m: "auto", mt: 4 }}>
@@ -120,7 +130,7 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
             onClick={() => navigate(LANDING_ROUTES.PRODUCTS_PAGE)}
           />
         )}
-        {productPage ? (
+        {skipPro && (
           <TextField
             select
             defaultValue={"All Options"}
@@ -134,11 +144,6 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
               </MenuItem>
             ))}
           </TextField>
-        ) : (
-          <CommonButton
-            title="See All"
-            onClick={() => navigate(LANDING_ROUTES.PRODUCTS_PAGE)}
-          />
         )}
       </Box>
       <Grid container spacing={5}>
@@ -255,7 +260,7 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
           </Grid>
         ))}
       </Grid>
-      {productPage ? (
+      {skipPro ? (
         <Box
           display={"flex"}
           justifyContent={"center"}
@@ -271,6 +276,37 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
           >
             Prev
           </Button>
+          <Stack>
+            <Pagination
+              sx={{
+                ".MuiPaginationItem-root": {
+                  border: `1px solid ${COLORS.pink.hotPink}`,
+                  bgcolor: "white",
+                  "&.Mui-selected": {
+                    bgcolor: COLORS.pink.hotPink,
+                    color: "white",
+                    "&:hover": {
+                      bgcolor: COLORS.pink.hotPink,
+                      color: "white",
+                    },
+                  },
+                  "&:hover": {
+                    bgcolor: COLORS.pink.hotPink,
+                    color: "white",
+                  },
+                  "& > .MuiPagination-ul": {
+                    justifyContent: "center",
+                  },
+                },
+              }}
+              count={Math.ceil(products.length / 8)}
+              page={1 * 8}
+              variant="outlined"
+              shape="rounded"
+              hideNextButton
+              hidePrevButton
+            />
+          </Stack>
           <Button
             sx={btnStyle}
             onClick={() => setSkip((prev) => prev + (skipPro ? skipPro : 4))}
