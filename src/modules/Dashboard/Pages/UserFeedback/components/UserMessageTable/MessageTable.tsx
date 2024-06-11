@@ -1,18 +1,22 @@
 import React from "react";
 import styled from "@emotion/styled";
 import {
-  Container,
+  Box,
+  Pagination,
   Paper,
+  Stack,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
+  Typography,
 } from "@mui/material";
+import { COLORS } from "constants/contents/color";
 import { getUserMessages } from "services/userMessage";
 import { AuthContext } from "context/authContext";
-import MessageModal from "../MessageModal/MessageModal";
+import MessageModal from "./MessageModal/MessageModal";
 
 const TableRowStyled = styled(TableRow)`
   &:nth-of-type(odd) {
@@ -37,37 +41,43 @@ const MessageTable = () => {
   }, [message, setMessage, user]);
 
   return (
-    <Container maxWidth='lg'>
+    <div>
       <Paper elevation={4}>
-        <TableContainer  sx={{ mt:5}}>
-          <Table aria-label="simple table">
+        <TableContainer>
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell align="center">User Name</TableCell>
-                <TableCell align="center">Email</TableCell>
-                <TableCell align="center">Message</TableCell>
+                <TableCell align="left">User Name</TableCell>
+                <TableCell align="left">Email</TableCell>
+                <TableCell align="left">Message</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {message?.map((item: any, i: any) => (
-                <TableRowStyled key={i} hover  onClick={()=>{
-                  setMessageModal(!messageModal)
-                  setUserId(item?.id)
-               }}>
+                <TableRowStyled key={i} hover>
                   <TableCell
-                    align="center"
+                    align="left"
+                    sx={{ display: "flex", gap: 1, alignItems: "center" }}
                   >
                     {item?.UserName}
                   </TableCell>
-                  <TableCell align="center">{item?.email}</TableCell>
-                  <TableCell align="center">
-                    {item?.UserMessage.slice(0, 40)} ...
+                  <TableCell align="left">{item?.email}</TableCell>
+                  <TableCell align="left">
+                    {item?.UserMessage.slice(0, 30)}
+                    <Box
+                     onClick={()=>{
+                        setMessageModal(true)
+                        setUserId(item?.id)
+                     }}
+                     href="#" component={"a"}>
+                      ...
+                    </Box>
                   </TableCell>
                   {messageModal && userId === item?.id && (
                     <MessageModal
                       messageModal={messageModal}
                       userMessage={item}
-                      onClose={() => setMessageModal(messageModal)}
+                      onClose={() => setMessageModal(false)}
                     />
                   )}
                 </TableRowStyled>
@@ -76,7 +86,7 @@ const MessageTable = () => {
           </Table>
         </TableContainer>
       </Paper>
-    </Container>
+    </div>
   );
 };
 

@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import {
-  Box,
   Container,
   Paper,
   Table,
@@ -40,22 +39,15 @@ const OrderList = () => {
     };
 
     fetchOrders();
-  }, [orders, setOrders, user]);
+  }, [orders,setOrders,user]);
 
   if (loading) {
-    return <Box
-    sx={{
-      p:5,
-      textAlign:'center',
-      color:COLORS.pink.hotPink,
-      fontWeight:'bold'
-    }}
-    >Loading...</Box>;
+    return <p>Loading...</p>;
   }
 
   return (
-    <Container maxWidth="lg" sx={{ mb: 10 }}>
-      <Typography sx={{ color: "black", pt: 4, pb: 2, fontWeight: 900 }}>
+    <Container maxWidth="lg">
+      <Typography sx={{ pt: 15, color: "black", pb: 3, fontWeight: 900 }}>
         My Orders
       </Typography>
       <Paper elevation={5}>
