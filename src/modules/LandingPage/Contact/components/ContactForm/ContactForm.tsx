@@ -44,9 +44,9 @@ const ContactForm = () => {
           multiline
           rows={5}
           fullWidth
-          sx={{ bgcolor: "white", mb: 3, borderRadius: 1 }}
+          sx={{ bgcolor: "white", mb: 2, borderRadius: 1 }}
           {...register("message")}
-          placeholder="Enter your Message"
+          placeholder="Enter your Feedback"
         />
         {isLoggedIn ? (
           <LoadingButton

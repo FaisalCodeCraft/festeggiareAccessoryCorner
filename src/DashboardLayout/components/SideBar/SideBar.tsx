@@ -10,8 +10,10 @@ import {
   EqualizerOutlined,
   LocalGroceryStoreOutlined,
   LogoutOutlined,
+  Message,
   Person2,
   ReceiptLongOutlined,
+  ViewListOutlined,
 } from "@mui/icons-material";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Theme, createTheme } from "@mui/material";
@@ -234,7 +236,7 @@ export const SideBar = (props: any) => {
             onClick={() => navigate(ROUTES.DASHBOARD.ORDER_RECORDS)}
           >
             <ListItemIcon>
-              <ReceiptLongOutlined
+              <ViewListOutlined
                 sx={{
                   color: "white",
                 }}
@@ -308,14 +310,14 @@ export const SideBar = (props: any) => {
             onClick={() => navigate(ROUTES.DASHBOARD.USER_FEEDBACK)}
           >
             <ListItemIcon>
-              <EqualizerOutlined
+              <Message
                 sx={{
                   color: "white",
                 }}
                 fontSize="small"
               />
             </ListItemIcon>
-            <ListItemText>FeedBack</ListItemText>
+            <ListItemText>Feedback</ListItemText>
           </ListItemButton>
         </ListItem>
 
