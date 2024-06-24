@@ -36,7 +36,7 @@ export const addNewAdmin = async (values: Admin, onClose: () => void) => {
       const addNewAdminAuth = await createUserWithEmailAndPassword(
         auth,
         values?.email,
-        values?.phoneNumber.toString()
+        values?.password
       );
       if (!addNewAdminAuth) {
         return;
@@ -49,7 +49,7 @@ export const addNewAdmin = async (values: Admin, onClose: () => void) => {
           email: values.email,
           phoneNumber: values.phoneNumber,
           id: addNewAdminAuth.user.uid,
-          createAt: new Date(Date.now()).toLocaleString(),
+          createdAt: new Date(Date.now()).toLocaleString(),
         };
         await setDoc(
           doc(adminCollectionRef, addNewAdminAuth.user.uid),

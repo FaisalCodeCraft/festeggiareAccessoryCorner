@@ -6,5 +6,6 @@ export type Admin={
     phoneNumber: number,
     id: string,
     createAt: string,
-    profileImage:string
+    profileImage:string,
+    password:string
 }

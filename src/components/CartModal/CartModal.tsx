@@ -108,7 +108,6 @@ const CartModal: React.FC<CartModalProps> = ({ color }) => {
   const [loading, setLoading] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
- console.log(incDec)
   let userData: any;
   const navigate = useNavigate();
 

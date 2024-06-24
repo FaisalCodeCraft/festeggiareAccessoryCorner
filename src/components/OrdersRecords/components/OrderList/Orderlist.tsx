@@ -54,8 +54,8 @@ const OrderList = () => {
   }
 
   return (
-    <Container maxWidth="lg" sx={{ mb: 10 }}>
-      <Typography sx={{ color: "black", pt: 4, pb: 2, fontWeight: 900 }}>
+    <Container maxWidth="lg" sx={{py:3}}>
+      <Typography sx={{ py: 2, color: "black",  fontWeight: 900 }}>
         My Orders
       </Typography>
       <Paper elevation={5}>
@@ -64,7 +64,7 @@ const OrderList = () => {
             <TableHead>
               <TableRow>
                 <TableCell align="left">ITEM NAMES</TableCell>
-                <TableCell align="left">Date</TableCell>
+                <TableCell align="left">Date & Time</TableCell>
                 <TableCell align="left">Price</TableCell>
                 <TableCell align="left">Quantity</TableCell>
                 <TableCell align="left">Status</TableCell>

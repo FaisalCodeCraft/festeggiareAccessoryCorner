@@ -1,8 +1,8 @@
 import React from "react";
-import OrderList from "./components/OrderList/Orderlist";
 import { Box } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import { ROUTES } from "constants/contents/routes";
+import OrderList from "./components/OrderList/Orderlist";
 
 const OrderPlace = () => {
   const {pathname} = useLocation()

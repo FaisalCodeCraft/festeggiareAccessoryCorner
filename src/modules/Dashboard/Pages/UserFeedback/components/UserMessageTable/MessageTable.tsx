@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import {
+  Box,
   Container,
   Paper,
   Table,
@@ -50,24 +51,31 @@ const MessageTable = () => {
             </TableHead>
             <TableBody>
               {message?.map((item: any, i: any) => (
-                <TableRowStyled key={i} hover  onClick={()=>{
-                  setMessageModal(!messageModal)
-                  setUserId(item?.id)
-               }}>
+                <TableRowStyled
+                  key={i}
+                  hover
+                  onClick={() => {
+                    setMessageModal(!messageModal);
+                    setUserId(item?.id);
+                  }}
+                >
                   <TableCell
                     align="center"
                   >
                     {item?.UserName}
                   </TableCell>
-                  <TableCell align="center">{item?.email}</TableCell>
-                  <TableCell align="center">
-                    {item?.UserMessage.slice(0, 40)} ...
+                  <TableCell align="left">{item?.email}</TableCell>
+                  <TableCell align="left">
+                    {item?.UserMessage.slice(0, 30)}
+                    <Box href="#" component={"a"}>
+                      ...
+                    </Box>
                   </TableCell>
                   {messageModal && userId === item?.id && (
                     <MessageModal
                       messageModal={messageModal}
                       userMessage={item}
-                      onClose={() => setMessageModal(messageModal)}
+                      onClose={() => setMessageModal(!messageModal)}
                     />
                   )}
                 </TableRowStyled>

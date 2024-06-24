@@ -5,7 +5,9 @@ import {
   Grid,
   LinearProgress,
   MenuItem,
+  Pagination,
   Rating,
+  Stack,
   TextField,
   Typography,
 } from "@mui/material";
@@ -271,6 +273,37 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
           >
             Prev
           </Button>
+          <Stack>
+            <Pagination
+              sx={{
+                ".MuiPaginationItem-root": {
+                  border: `1px solid ${COLORS.pink.hotPink}`,
+                  bgcolor: "white",
+                  "&.Mui-selected": {
+                    bgcolor: COLORS.pink.hotPink,
+                    color: "white",
+                    "&:hover": {
+                      bgcolor: COLORS.pink.hotPink,
+                      color: "white",
+                    },
+                  },
+                  "&:hover": {
+                    bgcolor: COLORS.pink.hotPink,
+                    color: "white",
+                  },
+                  "& > .MuiPagination-ul": {
+                    justifyContent: "center",
+                  },
+                },
+              }}
+              count={Math.ceil(products?.length / 8)}
+              page={1 * 8}
+              variant="outlined"
+              shape="rounded"
+              hideNextButton
+              hidePrevButton
+            />
+          </Stack>
           <Button
             sx={btnStyle}
             onClick={() => setSkip((prev) => prev + (skipPro ? skipPro : 4))}
