@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import {
+  Box,
   Container,
   Paper,
   Table,
@@ -39,10 +40,17 @@ const OrderList = () => {
     };
 
     fetchOrders();
-  }, [orders,setOrders,user]);
+  }, [orders, setOrders, user]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Box
+    sx={{
+      p:5,
+      textAlign:'center',
+      color:COLORS.pink.hotPink,
+      fontWeight:'bold'
+    }}
+    >Loading...</Box>;
   }
 
   return (

@@ -2,9 +2,8 @@ import React from "react";
 import styled from "@emotion/styled";
 import {
   Box,
-  Pagination,
+  Container,
   Paper,
-  Stack,
   Table,
   TableBody,
   TableCell,
@@ -14,7 +13,7 @@ import {
 } from "@mui/material";
 import { getUserMessages } from "services/userMessage";
 import { AuthContext } from "context/authContext";
-import MessageModal from "./MessageModal/MessageModal";
+import MessageModal from "../MessageModal/MessageModal";
 
 const TableRowStyled = styled(TableRow)`
   &:nth-of-type(odd) {
@@ -39,15 +38,15 @@ const MessageTable = () => {
   }, [message, setMessage, user]);
 
   return (
-    <div>
+    <Container maxWidth='lg'>
       <Paper elevation={4}>
-        <TableContainer>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableContainer  sx={{ mt:5}}>
+          <Table aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell align="left">User Name</TableCell>
-                <TableCell align="left">Email</TableCell>
-                <TableCell align="left">Message</TableCell>
+                <TableCell align="center">User Name</TableCell>
+                <TableCell align="center">Email</TableCell>
+                <TableCell align="center">Message</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -61,8 +60,7 @@ const MessageTable = () => {
                   }}
                 >
                   <TableCell
-                    align="left"
-                    sx={{ display: "flex", gap: 1, alignItems: "center" }}
+                    align="center"
                   >
                     {item?.UserName}
                   </TableCell>
@@ -86,7 +84,7 @@ const MessageTable = () => {
           </Table>
         </TableContainer>
       </Paper>
-    </div>
+    </Container>
   );
 };
 
