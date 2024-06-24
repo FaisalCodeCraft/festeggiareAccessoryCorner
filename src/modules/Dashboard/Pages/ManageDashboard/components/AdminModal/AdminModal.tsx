@@ -177,6 +177,14 @@ export default function AdminModal(props:any ) {
               />
 
               <TextField
+                defaultValue={adminData?.password ? adminData?.password : ""}
+                placeholder="Password"
+                {...register("password")}
+                error={errors.password ? true : false}
+                helperText={errors.password ? <> {errors.password?.message} </> : ""}
+              />
+
+              <TextField
                 defaultValue={
                   adminData?.phoneNumber ? adminData?.phoneNumber : ""
                 }
