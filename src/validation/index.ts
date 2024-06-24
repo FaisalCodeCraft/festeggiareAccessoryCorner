@@ -10,6 +10,7 @@ export const addAdminFormSchema = yup.object().shape({
   lastName: yup.string().required(),
   role: yup.string().required(),
   email: yup.string().email().required(),
+  password: yup.string().required().min(8).max(12),
   phoneNumber: yup.string().required().min(8).max(11),
   profileImage: yup.mixed().required(),
 });
@@ -20,6 +21,7 @@ export const editAddminFormSchema = yup.object().shape({
   lastName: yup.string(),
   role: yup.string(),
   email: yup.string().email(),
+  password: yup.string().min(8).max(12),
   phoneNumber: yup.string().max(11),
   profileImage: yup.mixed(),
 });
