@@ -299,7 +299,7 @@ const AllProducts: React.FC<AllProductsPropsType> = (props: any) => {
                   },
                 },
               }}
-              count={Math.ceil(products.length / 8)}
+              count={Math.ceil(products?.length / 8)}
               page={1 * 8}
               variant="outlined"
               shape="rounded"

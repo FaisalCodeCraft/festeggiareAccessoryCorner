@@ -31,14 +31,14 @@ const Header = () => {
           sx={{ transform: "translateY(-50%)" }}
           mt={4}
         >
-          <Typography>WELCOME TO CYBER BAZAAR</Typography>
+          <Typography>WELCOME TO ACCESSORY CORNER</Typography>
           <Typography
             fontSize={{ md: "2.5em" }}
             fontWeight={300}
             lineHeight={"50px"}
             py={{ md: 5.5 }}
           >
-            Unveil Your Radiance: Dive into Beauty with CYBER BAZAAR Skincare
+            Unveil Your Radiance: Dive into Beauty with Accessory Corner Skincare
             Marvels!
           </Typography>
           <CommonButton title="Shop Now"/>

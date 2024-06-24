@@ -10,7 +10,7 @@ const DashboardLayout = (props:any) => {
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   const handleSideBar = () => setIsSideBarOpen(!isSideBarOpen);
   return (
-    <Box position={"relative"} display="flex" width={"100%"}>
+    <Box position={"relative"} display="flex" width={"100%"} >
       <Box
         component="nav"
         sx={{ width: { md: 250, sm: 200 }, flexShrink: { md: 1, sm: 0 } }}
@@ -36,8 +36,8 @@ const DashboardLayout = (props:any) => {
         </IconButton>
       </Box>
 
-      <Box width={"100%"} pl={{ md: 3 }}>
-        <Container maxWidth="lg">
+      <Box width={"100%"} pl={{ md: 3 }} minHeight={{md:"100svh"}}>
+        <Container maxWidth="lg" >
           <NavBar
            title={title} 
            buttonClick={buttonClick}

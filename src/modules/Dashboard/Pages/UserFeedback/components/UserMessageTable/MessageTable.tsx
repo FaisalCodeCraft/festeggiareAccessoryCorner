@@ -11,9 +11,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
 } from "@mui/material";
-import { COLORS } from "constants/contents/color";
 import { getUserMessages } from "services/userMessage";
 import { AuthContext } from "context/authContext";
 import MessageModal from "./MessageModal/MessageModal";
@@ -54,7 +52,14 @@ const MessageTable = () => {
             </TableHead>
             <TableBody>
               {message?.map((item: any, i: any) => (
-                <TableRowStyled key={i} hover>
+                <TableRowStyled
+                  key={i}
+                  hover
+                  onClick={() => {
+                    setMessageModal(!messageModal);
+                    setUserId(item?.id);
+                  }}
+                >
                   <TableCell
                     align="left"
                     sx={{ display: "flex", gap: 1, alignItems: "center" }}
@@ -64,12 +69,7 @@ const MessageTable = () => {
                   <TableCell align="left">{item?.email}</TableCell>
                   <TableCell align="left">
                     {item?.UserMessage.slice(0, 30)}
-                    <Box
-                     onClick={()=>{
-                        setMessageModal(true)
-                        setUserId(item?.id)
-                     }}
-                     href="#" component={"a"}>
+                    <Box href="#" component={"a"}>
                       ...
                     </Box>
                   </TableCell>
@@ -77,7 +77,7 @@ const MessageTable = () => {
                     <MessageModal
                       messageModal={messageModal}
                       userMessage={item}
-                      onClose={() => setMessageModal(false)}
+                      onClose={() => setMessageModal(!messageModal)}
                     />
                   )}
                 </TableRowStyled>
